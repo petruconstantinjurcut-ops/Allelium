@@ -164,6 +164,16 @@
   .cell-affected{ background:#FBEAE6; color:#8A3B2B; font-weight:700; }
   .cell-carrier{ background:#FDF3DC; color:#7A5A17; font-weight:700; }
   .cell-clear{ background:#E7F3E3; color: var(--green-deep); font-weight:700; }
+  .cell-excluded{ opacity:.32; }
+
+  .odds-callout{
+    display:none; align-items:center; gap:16px; margin: 16px 0; padding: 16px 18px;
+    border-radius: 12px; background:#F0F5EE; border:1px solid var(--line);
+  }
+  .odds-callout.show{ display:flex; }
+  .odds-callout .big-pct{ font-family: var(--font-mono); font-size:2.1rem; font-weight:600; line-height:1; flex-shrink:0; }
+  .odds-callout .odds-text{ font-size:.86rem; color: var(--ink-soft); }
+  .odds-callout .odds-text b{ color: var(--ink); }
 
   .result-summary{ font-size:.9rem; color: var(--ink-soft); margin-top:10px; }
   .result-summary b{ color: var(--ink); }
@@ -274,6 +284,14 @@
           <option value="x-dom">X-linked Dominant</option>
         </select>
 
+        <label class="field-label" id="childsex-label">Child's sex (for this pregnancy)</label>
+        <select class="field" id="childsex-select">
+          <option value="any">Any / unknown</option>
+          <option value="daughter">Daughter (XX)</option>
+          <option value="son">Son (XY)</option>
+        </select>
+        <p id="childsex-note" style="font-size:.76rem; color:var(--ink-soft); margin-top:6px;"></p>
+
         <div id="parent-inputs"></div>
 
         <button class="sim-btn" id="simulate-btn">Simulate 50 offspring</button>
@@ -283,6 +301,7 @@
       <div class="panel">
         <h3>Punnett square</h3>
         <table class="punnett" id="punnett-table"></table>
+        <div class="odds-callout" id="odds-callout"></div>
         <div class="result-summary" id="result-summary"></div>
         <h3 style="margin-top:22px;">Simulation results</h3>
         <div id="sim-results" style="margin-top:8px;"><p style="color:var(--ink-soft); font-size:.85rem;">Run a simulation to see actual outcomes appear here.</p></div>
@@ -463,10 +482,24 @@ renderFilterRow(); renderTraitList();
 
 /* ============================= VISUALIZER ============================= */
 const patternSelect = document.getElementById('pattern-select');
+const childSexSelect = document.getElementById('childsex-select');
 let parent1 = ['A','a'];
 let parent2 = ['A','a'];
 
 function isXLinked(pattern){ return pattern === 'x-rec' || pattern === 'x-dom'; }
+
+function updateChildSexAvailability(){
+  const pattern = patternSelect.value;
+  const note = document.getElementById('childsex-note');
+  if(isXLinked(pattern)){
+    childSexSelect.disabled = false;
+    note.textContent = "Sex matters a lot here — sons get their only X from mom, daughters get one X from each parent.";
+  } else {
+    childSexSelect.disabled = true;
+    childSexSelect.value = 'any';
+    note.textContent = "Sex doesn't change the odds for autosomal (non-sex-chromosome) inheritance, so this is locked to \"Any\".";
+  }
+}
 
 function alleleButton(value, current, groupId, idx){
   return `<button class="allele-btn ${value} ${current===value?'selected':''}" data-group="${groupId}" data-idx="${idx}" data-value="${value}">${value === 'A' ? 'A' : 'a'}</button>`;
@@ -531,20 +564,22 @@ function phenotypeClass(alleles, pattern, isHemizygousMale){
 
 function buildPunnett(){
   const pattern = patternSelect.value;
+  const childSex = isXLinked(pattern) ? childSexSelect.value : 'any';
   const table = document.getElementById('punnett-table');
-  let rows = [];
-  let cells = []; // {alleles, isHemi}
+  let cells = []; // {alleles, isHemi, included}
   let colHeaders, rowHeaders;
 
   if(!isXLinked(pattern)){
     colHeaders = parent2; rowHeaders = parent1;
-    cells = rowHeaders.map(r => colHeaders.map(c => ({alleles: [r,c].sort(), isHemi:false})));
+    cells = rowHeaders.map(r => colHeaders.map(c => ({alleles: [r,c].sort(), isHemi:false, included:true})));
   } else {
     colHeaders = parent1; // mother's two alleles
     rowHeaders = [parent2[0], 'Y']; // father's X allele, then Y
     cells = rowHeaders.map(r => colHeaders.map(c => {
-      if(r === 'Y') return {alleles:[c], isHemi:true}; // son: mom allele + Y
-      return {alleles:[c,r].sort(), isHemi:false}; // daughter: mom + dad X
+      const isSonCell = (r === 'Y');
+      const included = childSex === 'any' || (childSex === 'son' && isSonCell) || (childSex === 'daughter' && !isSonCell);
+      if(isSonCell) return {alleles:[c], isHemi:true, included};
+      return {alleles:[c,r].sort(), isHemi:false, included}; // daughter: mom + dad X
     }));
   }
 
@@ -556,14 +591,15 @@ function buildPunnett(){
       const label = isXLinked(pattern)
         ? (cell.isHemi ? 'X'+sup(cell.alleles[0])+'Y' : cell.alleles.map(a=>'X'+sup(a)).join(''))
         : cell.alleles.join('');
-      html += `<td class="${cls}">${label}<span class="pct">25%</span></td>`;
+      const excludedCls = cell.included ? '' : ' cell-excluded';
+      html += `<td class="${cls}${excludedCls}">${label}<span class="pct">25%</span></td>`;
     });
     html += '</tr>';
   });
   table.innerHTML = html;
 
-  // tally
-  const flat = cells.flat();
+  // tally only over included cells
+  const flat = cells.flat().filter(c => c.included);
   const total = flat.length;
   const tally = { affected:0, carrier:0, clear:0 };
   flat.forEach(cell => {
@@ -572,12 +608,11 @@ function buildPunnett(){
     else if(cls==='cell-carrier') tally.carrier++;
     else tally.clear++;
   });
-  return tally;
+  return { tally, total, childSex };
 }
 function sup(letter){ return `<sup>${letter}</sup>`; }
 
-function renderSummary(tally){
-  const total = 4;
+function renderSummary(tally, total){
   const pct = n => Math.round((n/total)*100);
   document.getElementById('result-summary').innerHTML = `
     <div class="bar-row"><span class="label">Affected / expresses trait</span><div class="bar-track"><div class="bar-fill" style="width:${pct(tally.affected)}%; background:#C96A5B;"></div></div><span class="val">${pct(tally.affected)}%</span></div>
@@ -586,18 +621,41 @@ function renderSummary(tally){
   `;
 }
 
-function computeAndRender(){
-  const tally = buildPunnett();
-  renderSummary(tally);
+function renderOddsCallout(pattern, childSex, tally, total){
+  const callout = document.getElementById('odds-callout');
+  if(!isXLinked(pattern) || childSex === 'any'){
+    callout.classList.remove('show');
+    callout.innerHTML = '';
+    return;
+  }
+  const pct = Math.round((tally.affected/total)*100);
+  const childWord = childSex === 'son' ? 'son' : 'daughter';
+  const color = pct === 0 ? '#1B7A4D' : (pct >= 50 ? '#C96A5B' : '#D9A441');
+  callout.classList.add('show');
+  callout.innerHTML = `
+    <div class="big-pct" style="color:${color};">${pct}%</div>
+    <div class="odds-text">Chance that <b>a ${childWord}</b> from this pairing is <b>affected</b> by the condition (not just a carrier).</div>
+  `;
 }
 
-patternSelect.addEventListener('change', () => { renderParentInputs(); computeAndRender(); });
+function computeAndRender(){
+  const pattern = patternSelect.value;
+  const childSex = isXLinked(pattern) ? childSexSelect.value : 'any';
+  const { tally, total } = buildPunnett();
+  renderSummary(tally, total);
+  renderOddsCallout(pattern, childSex, tally, total);
+}
+
+patternSelect.addEventListener('change', () => { updateChildSexAvailability(); renderParentInputs(); computeAndRender(); });
+childSexSelect.addEventListener('change', computeAndRender);
+updateChildSexAvailability();
 renderParentInputs();
 computeAndRender();
 
 /* ----- simulation ----- */
 document.getElementById('simulate-btn').addEventListener('click', () => {
   const pattern = patternSelect.value;
+  const childSex = isXLinked(pattern) ? childSexSelect.value : 'any';
   const counts = { affected:0, carrier:0, clear:0 };
   const N = 50;
   let done = 0;
@@ -610,7 +668,7 @@ document.getElementById('simulate-btn').addEventListener('click', () => {
         const a2 = parent2[Math.floor(Math.random()*2)];
         alleles = [a1,a2];
       } else {
-        const isSon = Math.random() < 0.5;
+        const isSon = childSex === 'any' ? (Math.random() < 0.5) : (childSex === 'son');
         const momAllele = parent1[Math.floor(Math.random()*2)];
         if(isSon){ alleles = [momAllele]; isHemi = true; }
         else { alleles = [momAllele, parent2[0]]; isHemi = false; }
