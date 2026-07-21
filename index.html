@@ -1547,6 +1547,25 @@ function renderSimResults(counts, N){
     const clone = svg.cloneNode(true);
     clone.setAttribute('width', '1000');
     clone.setAttribute('height', '700');
+
+    // Remove any in-progress selection/link-pending highlighting from the export
+    clone.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+
+    // The page's stylesheet doesn't travel with a standalone SVG, so bake the
+    // actual rules (with real color values, not CSS variables) directly in.
+    const style = document.createElementNS(SVGNS, 'style');
+    style.textContent = `
+      .ped-shape{ fill:#ffffff; stroke:#122017; stroke-width:2.5; }
+      .ped-shape.affected{ fill:#122017; }
+      .ped-carrier-dot{ fill:#122017; }
+      .ped-deceased-line{ stroke:#122017; stroke-width:2; }
+      .ped-label{ font-family:'IBM Plex Sans', sans-serif; font-size:12px; fill:#4C5F53; text-anchor:middle; }
+      .ped-link{ stroke:#122017; stroke-width:2; fill:none; }
+      .ped-text-node{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:20px; fill:#0A2A20; }
+      .ped-proband-arrow{ stroke:#122017; stroke-width:2; fill:none; marker-end:url(#arrowhead); }
+    `;
+    clone.insertBefore(style, clone.firstChild);
+
     const bg = document.createElementNS(SVGNS, 'rect');
     bg.setAttribute('x','0'); bg.setAttribute('y','0'); bg.setAttribute('width','1000'); bg.setAttribute('height','700'); bg.setAttribute('fill','#ffffff');
     clone.insertBefore(bg, clone.firstChild);
@@ -1565,8 +1584,13 @@ function renderSimResults(counts, N){
       const a = document.createElement('a');
       a.href = pngUrl; a.download = 'pedigree.png'; a.click();
     };
+    img.onerror = function(){
+      URL.revokeObjectURL(url);
+      alert('Something went wrong generating the PNG. Try "Print" instead, or let Claude know so this can be fixed.');
+    };
     img.src = url;
   });
+
 
   document.getElementById('print-pedigree').addEventListener('click', () => {
     window.print();
