@@ -75,6 +75,8 @@
   .btn-outline{ background:#fff; border-color: var(--line); color: var(--forest-deep); }
 
   .card-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top: 48px; }
+  .card-grid-3{ grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width:900px){ .card-grid-3{ grid-template-columns: 1fr 1fr; } }
   @media (max-width:720px){ .card-grid{ grid-template-columns: 1fr; } }
   .feature-card{
     background: var(--surface); border:1px solid var(--line); border-radius: var(--radius);
@@ -189,6 +191,80 @@
 
   footer{ text-align:center; padding: 32px 24px; color: var(--ink-soft); font-size:.82rem; border-top:1px solid var(--line); }
 
+  /* ---------- PEDIGREE TOOL ---------- */
+  .pedigree-layout{ display:grid; grid-template-columns: 260px 1fr; gap:20px; align-items:start; }
+  @media (max-width: 900px){ .pedigree-layout{ grid-template-columns: 1fr; } }
+  .pedigree-toolbar{
+    background: var(--surface); border:1px solid var(--line); border-radius: var(--radius);
+    padding: 18px; display:flex; flex-direction:column; gap:16px;
+  }
+  .tool-group{ display:flex; flex-direction:column; gap:6px; }
+  .tool-group-label{ font-size:.7rem; text-transform:uppercase; letter-spacing:.07em; color: var(--ink-soft); font-weight:600; margin-bottom:2px; }
+  .tool-btn{
+    display:flex; align-items:center; gap:8px; padding: 9px 12px; border-radius:9px; border:1px solid var(--line);
+    background:#fff; font-size:.85rem; font-weight:600; color: var(--ink); text-align:left; transition: all .15s;
+  }
+  .tool-btn:hover:not(:disabled){ background:#F0F5EE; border-color: var(--green); }
+  .tool-btn.active{ background: var(--forest); color:#fff; border-color: var(--forest); }
+  .tool-btn.primary{ background: var(--green); color:#fff; border-color: var(--green); justify-content:center; }
+  .tool-btn.primary:hover{ background: var(--green-deep); }
+  .tool-btn.danger{ color: var(--rose); }
+  .tool-btn.danger:hover:not(:disabled){ background:#FBEAE6; border-color: var(--rose); }
+  .tool-btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .toggle-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .toggle-btn{
+    flex:1 1 calc(50% - 3px); padding:8px 6px; border-radius:8px; border:1px solid var(--line); background:#fff;
+    font-size:.76rem; font-weight:600; color: var(--ink-soft);
+  }
+  .toggle-btn.on{ background: var(--forest); color:#fff; border-color: var(--forest); }
+  .toggle-btn:disabled{ opacity:.4; cursor:not-allowed; }
+
+  .pedigree-canvas-wrap{ position:relative; background:#fff; border:1px solid var(--line); border-radius: var(--radius); overflow:hidden; }
+  .pedigree-hint{
+    position:absolute; top:10px; left:50%; transform:translateX(-50%); z-index:5;
+    background:#0F3D2E; color:#fff; font-size:.78rem; padding:8px 16px; border-radius:999px; white-space:nowrap; opacity:.92;
+    pointer-events:none;
+  }
+  #pedigree-svg{ width:100%; height:640px; display:block; cursor:crosshair; background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, #F0F5EE 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, #F0F5EE 40px); }
+  #pedigree-svg.mode-select{ cursor:default; }
+
+  .ped-node{ cursor:pointer; }
+  .ped-node.selected .ped-shape{ stroke: var(--green); stroke-width:3.5; }
+  .ped-shape{ fill:#fff; stroke:#122017; stroke-width:2.5; }
+  .ped-shape.affected{ fill:#122017; }
+  .ped-carrier-dot{ fill:#122017; }
+  .ped-deceased-line{ stroke:#122017; stroke-width:2; }
+  .ped-label{ font-family: var(--font-body); font-size:12px; fill: var(--ink-soft); text-anchor:middle; }
+  .ped-link{ stroke:#122017; stroke-width:2; fill:none; }
+  .ped-link.selected{ stroke: var(--green); stroke-width:3; }
+  .ped-text-node{ font-family: var(--font-display); font-weight:700; font-size:20px; fill: var(--forest-deep); cursor:pointer; }
+  .ped-text-node.selected{ fill: var(--green); }
+  .ped-proband-arrow{ stroke:#122017; stroke-width:2; fill:none; marker-end:url(#arrowhead); }
+
+  .legend{ display:flex; flex-wrap:wrap; gap:16px; margin-top:20px; padding:16px 18px; background: var(--surface); border:1px solid var(--line); border-radius: var(--radius); }
+  .legend-item{ display:flex; align-items:center; gap:8px; font-size:.82rem; color: var(--ink-soft); }
+  .tool-icon{ width:16px; height:16px; display:inline-block; border:2px solid #122017; background:#fff; flex-shrink:0; }
+  .tool-square{ border-radius:2px; }
+  .tool-circle{ border-radius:50%; }
+  .tool-diamond{ transform: rotate(45deg); width:13px; height:13px; }
+  .tool-icon.filled{ background:#122017; }
+  .tool-icon.carrier{ background: radial-gradient(circle, #122017 30%, #fff 32%); }
+  .tool-icon.deceased{ position:relative; }
+  .tool-icon.deceased::after{ content:""; position:absolute; top:-3px; left:6px; width:2px; height:20px; background:#122017; transform: rotate(45deg); }
+  .tool-icon.proband{ position:relative; }
+  .tool-icon.proband::before{ content:"↗"; position:absolute; left:-14px; top:-2px; font-size:14px; color:#122017; }
+  .legend-line{ width:24px; height:2px; background:#122017; display:inline-block; }
+  .legend-line.vertical{ width:2px; height:20px; }
+
+  @media print{
+    nav.topnav, .pedigree-toolbar, .page-head, .disclaimer, .legend, footer, .pedigree-hint{ display:none !important; }
+    .pedigree-layout{ display:block; }
+    #pedigree-svg{ height:auto; }
+  }
+
+
   .atom-spin{ animation: spin 12s linear infinite; transform-origin: center; }
   @keyframes spin{ to{ transform: rotate(360deg); } }
 </style>
@@ -201,6 +277,7 @@
     <button class="tab-btn active" data-page="home">Home</button>
     <button class="tab-btn" data-page="explainer">Trait Guide</button>
     <button class="tab-btn" data-page="visualizer">Inheritance Lab</button>
+    <button class="tab-btn" data-page="pedigree">Pedigree Tool</button>
   </div>
 </nav>
 
@@ -219,7 +296,7 @@
       </div>
     </div>
 
-    <div class="card-grid">
+    <div class="card-grid card-grid-3">
       <div class="feature-card">
         <span class="tag">Tool 01</span>
         <h3>Trait &amp; Condition Guide</h3>
@@ -232,10 +309,16 @@
         <p>Pick two parents' alleles, get a live Punnett square, exact odds, and a randomized simulation of real offspring outcomes.</p>
         <div class="go" data-goto="visualizer">Open the calculator →</div>
       </div>
+      <div class="feature-card">
+        <span class="tag">Tool 03</span>
+        <h3>Pedigree Tool</h3>
+        <p>Draw a standard family-tree pedigree chart — for clinicians sketching a patient's family history, or anyone mapping how a trait runs in their family.</p>
+        <div class="go" data-goto="pedigree">Open the pedigree tool →</div>
+      </div>
     </div>
 
     <div class="strip">
-      <div><div class="n">19</div><div class="l">traits &amp; conditions covered</div></div>
+      <div><div class="n">126</div><div class="l">traits &amp; conditions covered</div></div>
       <div><div class="n">4</div><div class="l">inheritance patterns modeled</div></div>
       <div><div class="n">0</div><div class="l">API keys required</div></div>
     </div>
@@ -309,6 +392,72 @@
     </div>
   </section>
 
+  <!-- ================= PEDIGREE TOOL ================= -->
+  <section class="page" id="page-pedigree" hidden>
+    <div class="page-head">
+      <div class="eyebrow">Pedigree Tool</div>
+      <h2>Draw a family-tree pedigree chart</h2>
+      <p>Standard medical-genetics symbols — squares for males, circles for females, filled shapes for affected individuals. Everything here stays in your browser; nothing is uploaded or saved anywhere.</p>
+    </div>
+    <div class="disclaimer">⚠️ This tool is for sketching and visualizing family history — it doesn't store, transmit, or save any data. For real patient records, use it as a drawing aid alongside your standard documentation practices, and avoid entering identifying information you wouldn't want visible on someone's screen.</div>
+
+    <div class="pedigree-layout">
+      <div class="pedigree-toolbar">
+        <div class="tool-group">
+          <div class="tool-group-label">Add person</div>
+          <button class="tool-btn" data-mode="add-M" title="Add male"><span class="tool-icon tool-square"></span>Male</button>
+          <button class="tool-btn" data-mode="add-F" title="Add female"><span class="tool-icon tool-circle"></span>Female</button>
+          <button class="tool-btn" data-mode="add-U" title="Add unknown sex"><span class="tool-icon tool-diamond"></span>Unknown</button>
+        </div>
+        <div class="tool-group">
+          <div class="tool-group-label">Connect</div>
+          <button class="tool-btn" data-mode="select">Select / Move</button>
+          <button class="tool-btn" data-mode="link-partner">Draw partner line</button>
+          <button class="tool-btn" data-mode="link-parent">Draw parent → child</button>
+        </div>
+        <div class="tool-group">
+          <div class="tool-group-label">Add label</div>
+          <button class="tool-btn" data-mode="add-text">Generation label (I, II…)</button>
+        </div>
+        <div class="tool-group">
+          <div class="tool-group-label">Selected person</div>
+          <input type="text" class="field" id="node-label-input" placeholder="Name / ID / age" disabled>
+          <div class="toggle-row">
+            <button class="toggle-btn" id="toggle-affected" disabled>Affected</button>
+            <button class="toggle-btn" id="toggle-carrier" disabled>Carrier</button>
+            <button class="toggle-btn" id="toggle-deceased" disabled>Deceased</button>
+            <button class="toggle-btn" id="toggle-proband" disabled>Proband</button>
+          </div>
+        </div>
+        <div class="tool-group">
+          <button class="tool-btn danger" id="delete-selected" disabled>Delete selected</button>
+          <button class="tool-btn danger" id="clear-canvas">Clear all</button>
+        </div>
+        <div class="tool-group">
+          <button class="tool-btn primary" id="export-png">Download as PNG</button>
+          <button class="tool-btn" id="print-pedigree">Print</button>
+        </div>
+      </div>
+
+      <div class="pedigree-canvas-wrap">
+        <div class="pedigree-hint" id="pedigree-hint">Click "Male", "Female", or "Unknown," then click anywhere on the canvas to place someone.</div>
+        <svg id="pedigree-svg" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="tool-icon tool-square"></span> Male</div>
+      <div class="legend-item"><span class="tool-icon tool-circle"></span> Female</div>
+      <div class="legend-item"><span class="tool-icon tool-diamond"></span> Unknown sex</div>
+      <div class="legend-item"><span class="tool-icon tool-square filled"></span> Affected</div>
+      <div class="legend-item"><span class="tool-icon tool-square carrier"></span> Carrier</div>
+      <div class="legend-item"><span class="tool-icon tool-square deceased"></span> Deceased</div>
+      <div class="legend-item"><span class="tool-icon tool-square proband"></span> Proband (index patient)</div>
+      <div class="legend-item"><span class="legend-line"></span> Partner line</div>
+      <div class="legend-item"><span class="legend-line vertical"></span> Parent → child line</div>
+    </div>
+  </section>
+
 </main>
 
 <footer>Allelium is an educational project, not a medical service. Built for curious minds who like biology, math, and code. 🧬</footer>
@@ -342,7 +491,7 @@ document.getElementById('logo-hero-holder').innerHTML = atomLogo(120, true);
 
 /* ============================= NAV ============================= */
 const tabBtns = document.querySelectorAll('.tab-btn');
-const pages = { home: document.getElementById('page-home'), explainer: document.getElementById('page-explainer'), visualizer: document.getElementById('page-visualizer') };
+const pages = { home: document.getElementById('page-home'), explainer: document.getElementById('page-explainer'), visualizer: document.getElementById('page-visualizer'), pedigree: document.getElementById('page-pedigree') };
 function goto(page){
   Object.entries(pages).forEach(([k,el]) => el.hidden = (k !== page));
   tabBtns.forEach(b => b.classList.toggle('active', b.dataset.page === page));
@@ -1104,6 +1253,328 @@ function renderSimResults(counts, N){
     <p style="font-size:.78rem; color:var(--ink-soft); margin-top:10px;">Random simulation — small sample sizes won't always match the exact Punnett-square percentages, just like real families.</p>
   `;
 }
+
+/* ============================= PEDIGREE TOOL ============================= */
+(function(){
+  const svg = document.getElementById('pedigree-svg');
+  const hintEl = document.getElementById('pedigree-hint');
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const SIZE = 18; // half-size of a shape
+
+  let pedNodes = [];
+  let pedLinks = [];
+  let nextId = 1;
+  let mode = 'select';
+  let selected = null; // {type:'node'|'link', id}
+  let linkFirst = null;
+  let dragId = null;
+
+  const hints = {
+    'add-M': 'Click anywhere on the canvas to place a male. Click "Select / Move" when done.',
+    'add-F': 'Click anywhere on the canvas to place a female. Click "Select / Move" when done.',
+    'add-U': 'Click anywhere on the canvas to place someone of unknown sex. Click "Select / Move" when done.',
+    'select': 'Click a person to select and edit them in the panel. Drag to reposition.',
+    'link-partner': 'Click one person, then a second person, to draw a partner line between them.',
+    'link-parent': 'Click the parent first, then the child, to draw a parent → child line.',
+    'add-text': 'Click anywhere to place a generation label. Edit its text in the side panel after selecting it.'
+  };
+
+  function setMode(m){
+    mode = m;
+    linkFirst = null;
+    document.querySelectorAll('.pedigree-toolbar .tool-btn[data-mode]').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+    hintEl.textContent = hints[m] || '';
+    svg.classList.toggle('mode-select', m === 'select');
+    render();
+  }
+
+  document.querySelectorAll('.pedigree-toolbar .tool-btn[data-mode]').forEach(btn => {
+    btn.addEventListener('click', () => setMode(btn.dataset.mode));
+  });
+
+  function getNode(id){ return pedNodes.find(n => n.id === id); }
+  function getLink(id){ return pedLinks.find(l => l.id === id); }
+
+  function clientToSvgPoint(evt){
+    const pt = svg.createSVGPoint();
+    pt.x = evt.clientX; pt.y = evt.clientY;
+    const ctm = svg.getScreenCTM();
+    if(!ctm) return {x:0,y:0};
+    const p = pt.matrixTransform(ctm.inverse());
+    return {x:p.x, y:p.y};
+  }
+
+  function createPerson(x, y, sex){
+    const node = {id:'n'+(nextId++), type:'person', x, y, sex, affected:false, carrier:false, deceased:false, proband:false, label:''};
+    pedNodes.push(node);
+    return node;
+  }
+  function createText(x, y){
+    const node = {id:'n'+(nextId++), type:'text', x, y, text:'I'};
+    pedNodes.push(node);
+    return node;
+  }
+  function createLink(type, from, to){
+    if(from === to) return;
+    const exists = pedLinks.some(l => l.type===type && l.from===from && l.to===to);
+    if(exists) return;
+    pedLinks.push({id:'l'+(nextId++), type, from, to});
+  }
+
+  function deleteSelected(){
+    if(!selected) return;
+    if(selected.type === 'node'){
+      pedNodes = pedNodes.filter(n => n.id !== selected.id);
+      pedLinks = pedLinks.filter(l => l.from !== selected.id && l.to !== selected.id);
+    } else if(selected.type === 'link'){
+      pedLinks = pedLinks.filter(l => l.id !== selected.id);
+    }
+    selected = null;
+    updateSidePanel();
+    render();
+  }
+
+  document.getElementById('delete-selected').addEventListener('click', deleteSelected);
+  document.getElementById('clear-canvas').addEventListener('click', () => {
+    if(pedNodes.length === 0 && pedLinks.length === 0) return;
+    if(confirm('Clear the entire pedigree? This cannot be undone.')){
+      pedNodes = []; pedLinks = []; selected = null; nextId = 1;
+      updateSidePanel(); render();
+    }
+  });
+
+  /* ----- side panel ----- */
+  const labelInput = document.getElementById('node-label-input');
+  const toggleAffected = document.getElementById('toggle-affected');
+  const toggleCarrier = document.getElementById('toggle-carrier');
+  const toggleDeceased = document.getElementById('toggle-deceased');
+  const toggleProband = document.getElementById('toggle-proband');
+  const deleteBtn = document.getElementById('delete-selected');
+
+  function updateSidePanel(){
+    const node = selected && selected.type==='node' ? getNode(selected.id) : null;
+    const isPerson = node && node.type === 'person';
+    const isText = node && node.type === 'text';
+
+    labelInput.disabled = !node;
+    labelInput.value = isPerson ? (node.label||'') : (isText ? (node.text||'') : '');
+    labelInput.placeholder = isText ? 'Generation label text' : 'Name / ID / age';
+
+    [toggleAffected, toggleCarrier, toggleDeceased, toggleProband].forEach(b => b.disabled = !isPerson);
+    if(isPerson){
+      toggleAffected.classList.toggle('on', !!node.affected);
+      toggleCarrier.classList.toggle('on', !!node.carrier);
+      toggleDeceased.classList.toggle('on', !!node.deceased);
+      toggleProband.classList.toggle('on', !!node.proband);
+    } else {
+      [toggleAffected, toggleCarrier, toggleDeceased, toggleProband].forEach(b => b.classList.remove('on'));
+    }
+    deleteBtn.disabled = !selected;
+  }
+
+  labelInput.addEventListener('input', () => {
+    if(!selected || selected.type !== 'node') return;
+    const node = getNode(selected.id);
+    if(!node) return;
+    if(node.type === 'text') node.text = labelInput.value;
+    else node.label = labelInput.value;
+    render();
+  });
+
+  toggleAffected.addEventListener('click', () => {
+    const node = selected && getNode(selected.id); if(!node) return;
+    node.affected = !node.affected;
+    if(node.affected) node.carrier = false;
+    updateSidePanel(); render();
+  });
+  toggleCarrier.addEventListener('click', () => {
+    const node = selected && getNode(selected.id); if(!node) return;
+    node.carrier = !node.carrier;
+    if(node.carrier) node.affected = false;
+    updateSidePanel(); render();
+  });
+  toggleDeceased.addEventListener('click', () => {
+    const node = selected && getNode(selected.id); if(!node) return;
+    node.deceased = !node.deceased;
+    updateSidePanel(); render();
+  });
+  toggleProband.addEventListener('click', () => {
+    const node = selected && getNode(selected.id); if(!node) return;
+    node.proband = !node.proband;
+    updateSidePanel(); render();
+  });
+
+  function selectNode(id){ selected = {type:'node', id}; updateSidePanel(); render(); }
+  function selectLink(id){ selected = {type:'link', id}; updateSidePanel(); render(); }
+  function deselectAll(){ selected = null; updateSidePanel(); render(); }
+
+  /* ----- pointer interactions ----- */
+  let dragStart = null;
+
+  function onNodePointerDown(evt, node){
+    evt.stopPropagation();
+    if(mode === 'select'){
+      dragId = node.id;
+      dragStart = clientToSvgPoint(evt);
+      selectNode(node.id);
+    } else if(mode === 'link-partner' || mode === 'link-parent'){
+      if(node.type !== 'person'){ return; }
+      if(!linkFirst){
+        linkFirst = node.id;
+        render();
+      } else if(linkFirst !== node.id){
+        createLink(mode === 'link-partner' ? 'partner' : 'parent', linkFirst, node.id);
+        linkFirst = null;
+        render();
+      }
+    }
+  }
+
+  function onBackgroundPointerDown(evt){
+    const pt = clientToSvgPoint(evt);
+    if(mode === 'add-M' || mode === 'add-F' || mode === 'add-U'){
+      createPerson(pt.x, pt.y, mode.slice(4));
+      render();
+    } else if(mode === 'add-text'){
+      createText(pt.x, pt.y);
+      render();
+    } else if(mode === 'select'){
+      deselectAll();
+    } else if(mode === 'link-partner' || mode === 'link-parent'){
+      linkFirst = null; render();
+    }
+  }
+
+  window.addEventListener('pointermove', (evt) => {
+    if(!dragId) return;
+    const node = getNode(dragId);
+    if(!node) return;
+    const pt = clientToSvgPoint(evt);
+    node.x = Math.max(20, Math.min(980, pt.x));
+    node.y = Math.max(20, Math.min(680, pt.y));
+    render();
+  });
+  window.addEventListener('pointerup', () => { dragId = null; });
+
+  /* ----- rendering ----- */
+  function shapePath(node){
+    const {x,y,sex} = node;
+    if(sex === 'M') return `<rect x="${x-SIZE}" y="${y-SIZE}" width="${SIZE*2}" height="${SIZE*2}" class="ped-shape${node.affected?' affected':''}"/>`;
+    if(sex === 'F') return `<circle cx="${x}" cy="${y}" r="${SIZE}" class="ped-shape${node.affected?' affected':''}"/>`;
+    return `<polygon points="${x},${y-SIZE-4} ${x+SIZE+4},${y} ${x},${y+SIZE+4} ${x-SIZE-4},${y}" class="ped-shape${node.affected?' affected':''}"/>`;
+  }
+
+  function render(){
+    let html = `<defs><marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#122017"/></marker></defs>`;
+    html += `<rect id="ped-bg-rect" x="0" y="0" width="1000" height="700" fill="transparent"></rect>`;
+
+    // links first (so nodes render on top)
+    pedLinks.forEach(link => {
+      const from = getNode(link.from), to = getNode(link.to);
+      if(!from || !to) return;
+      const sel = selected && selected.type==='link' && selected.id===link.id ? ' selected' : '';
+      if(link.type === 'partner'){
+        html += `<line data-link="${link.id}" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" class="ped-link${sel}"/>`;
+      } else {
+        const midY = (from.y + to.y) / 2 + SIZE + 14;
+        html += `<path data-link="${link.id}" d="M${from.x},${from.y+SIZE} L${from.x},${midY} L${to.x},${midY} L${to.x},${to.y-SIZE-4}" class="ped-link${sel}"/>`;
+      }
+    });
+
+    // pending link highlight
+    if(linkFirst){
+      const n = getNode(linkFirst);
+      if(n) html += `<circle cx="${n.x}" cy="${n.y}" r="${SIZE+8}" fill="none" stroke="#86D06B" stroke-width="3" stroke-dasharray="4 3"/>`;
+    }
+
+    // nodes
+    pedNodes.forEach(node => {
+      const isSel = selected && selected.type==='node' && selected.id===node.id;
+      if(node.type === 'text'){
+        html += `<text data-node="${node.id}" x="${node.x}" y="${node.y}" class="ped-text-node${isSel?' selected':''}">${escapeHtml(node.text||'')}</text>`;
+        return;
+      }
+      html += `<g data-node="${node.id}" class="ped-node${isSel?' selected':''}">`;
+      html += shapePath(node);
+      if(node.carrier && !node.affected){
+        html += `<circle cx="${node.x}" cy="${node.y}" r="5" class="ped-carrier-dot"/>`;
+      }
+      if(node.deceased){
+        html += `<line x1="${node.x-SIZE-4}" y1="${node.y+SIZE+4}" x2="${node.x+SIZE+4}" y2="${node.y-SIZE-4}" class="ped-deceased-line"/>`;
+      }
+      if(node.proband){
+        html += `<path d="M${node.x-SIZE-24},${node.y+SIZE+24} L${node.x-SIZE-4},${node.y+SIZE+4}" class="ped-proband-arrow"/>`;
+      }
+      if(node.label){
+        html += `<text x="${node.x}" y="${node.y+SIZE+16}" class="ped-label">${escapeHtml(node.label)}</text>`;
+      }
+      html += `</g>`;
+    });
+
+    svg.innerHTML = html;
+
+    // reattach listeners
+    svg.querySelectorAll('[data-node]').forEach(el => {
+      const id = el.getAttribute('data-node');
+      el.addEventListener('pointerdown', (evt) => {
+        const node = getNode(id);
+        if(node) onNodePointerDown(evt, node);
+      });
+      if(mode === 'select'){
+        el.addEventListener('dblclick', (evt) => {
+          evt.stopPropagation();
+          const node = getNode(id);
+          if(node){ selectNode(id); labelInput.focus(); }
+        });
+      }
+    });
+    svg.querySelectorAll('[data-link]').forEach(el => {
+      el.addEventListener('pointerdown', (evt) => {
+        if(mode !== 'select') return;
+        evt.stopPropagation();
+        selectLink(el.getAttribute('data-link'));
+      });
+    });
+    document.getElementById('ped-bg-rect').addEventListener('pointerdown', onBackgroundPointerDown);
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ----- export / print ----- */
+  document.getElementById('export-png').addEventListener('click', () => {
+    const clone = svg.cloneNode(true);
+    clone.setAttribute('width', '1000');
+    clone.setAttribute('height', '700');
+    const bg = document.createElementNS(SVGNS, 'rect');
+    bg.setAttribute('x','0'); bg.setAttribute('y','0'); bg.setAttribute('width','1000'); bg.setAttribute('height','700'); bg.setAttribute('fill','#ffffff');
+    clone.insertBefore(bg, clone.firstChild);
+    const svgData = new XMLSerializer().serializeToString(clone);
+    const svgBlob = new Blob([svgData], {type:'image/svg+xml;charset=utf-8'});
+    const url = URL.createObjectURL(svgBlob);
+    const img = new Image();
+    img.onload = function(){
+      const canvas = document.createElement('canvas');
+      canvas.width = 2000; canvas.height = 1400;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+      const pngUrl = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = pngUrl; a.download = 'pedigree.png'; a.click();
+    };
+    img.src = url;
+  });
+
+  document.getElementById('print-pedigree').addEventListener('click', () => {
+    window.print();
+  });
+
+  setMode('select');
+})();
+
 </script>
 </body>
 </html>
