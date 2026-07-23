@@ -7,6 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* Suppress Google's own translate banner/toolbar entirely — our custom
+     lang-select in the nav is the only translation control we want visible. */
+  .goog-te-banner-frame,
+  .goog-te-banner-frame.skiptranslate,
+  #goog-gt-tt, .goog-te-balloon-frame,
+  .goog-tooltip, .goog-tooltip:hover,
+  .goog-text-highlight{ display:none !important; background:none !important; box-shadow:none !important; }
+  body{ top:0 !important; position:static !important; }
+  #google_translate_element{ display:none !important; }
+
   :root{
     --bg: #F5F7F1;
     --surface: #FFFFFF;
@@ -232,10 +242,15 @@
     background:#0F3D2E; color:#fff; font-size:.78rem; padding:8px 16px; border-radius:999px; white-space:nowrap; opacity:.92;
     pointer-events:none;
   }
-  #pedigree-svg{ width:100%; height:640px; display:block; cursor:crosshair; background:
+  #pedigree-svg{ width:100%; height:640px; display:block; cursor:crosshair; touch-action:none; -webkit-user-select:none; user-select:none; background:
     repeating-linear-gradient(0deg, transparent, transparent 39px, #F0F5EE 40px),
     repeating-linear-gradient(90deg, transparent, transparent 39px, #F0F5EE 40px); }
   #pedigree-svg.mode-select{ cursor:default; }
+  .ped-node{ touch-action:none; }
+  @media (max-width: 640px){
+    #pedigree-svg{ height:70vh; min-height:420px; }
+    .pedigree-hint{ font-size:.7rem; padding:6px 12px; white-space:normal; text-align:center; max-width:88%; }
+  }
 
   .ped-node{ cursor:pointer; }
   .ped-node.selected .ped-shape{ stroke: var(--green); stroke-width:3.5; }
