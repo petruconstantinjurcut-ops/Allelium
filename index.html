@@ -531,6 +531,26 @@ function googleTranslateElementInit(){
     }
     location.reload();
   });
+
+  // Google's translate script injects its own top banner iframe and pushes the
+  // whole page down with an inline style — and it can re-apply that inline
+  // style after our CSS runs, so a plain stylesheet rule isn't always enough.
+  // This actively strips it out the instant it (re)appears.
+  function stripGoogleBanner(){
+    document.querySelectorAll('iframe.goog-te-banner-frame, iframe[id*="banner"], .goog-te-banner-frame').forEach(el => {
+      el.style.setProperty('display', 'none', 'important');
+      el.style.setProperty('visibility', 'hidden', 'important');
+      el.style.setProperty('height', '0', 'important');
+    });
+    if(document.body){
+      document.body.style.setProperty('top', '0px', 'important');
+      document.body.style.setProperty('position', 'static', 'important');
+    }
+    document.documentElement.style.setProperty('top', '0px', 'important');
+  }
+  stripGoogleBanner();
+  const bannerObserver = new MutationObserver(stripGoogleBanner);
+  bannerObserver.observe(document.documentElement, { childList:true, subtree:true, attributes:true, attributeFilter:['style','class'] });
 })();
 
 /* ============================= LOGO ============================= */
