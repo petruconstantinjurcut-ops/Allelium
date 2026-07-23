@@ -56,13 +56,23 @@
   }
   .tab-btn.active{ background: var(--forest); color:#fff; }
   .tab-btn:hover:not(.active){ background: var(--line); color: var(--ink); }
-  .lang-picker{ display:flex; align-items:center; gap:6px; background: var(--surface); border:1px solid var(--line); border-radius: 999px; padding:6px 12px 6px 10px; }
-  .lang-icon{ font-size:.95rem; line-height:1; }
-  .lang-select{
-    border:none; background:transparent; font-family: inherit; font-size:.83rem; font-weight:600;
-    color: var(--forest-deep); cursor:pointer; max-width:110px;
+  .lang-picker{ position:relative; }
+  .lang-btn{
+    display:flex; align-items:center; gap:6px; background: var(--surface); border:1px solid var(--line); border-radius: 999px;
+    padding:9px 14px; font-family:inherit; font-size:.83rem; font-weight:600; color: var(--forest-deep); cursor:pointer;
   }
-  .lang-select:focus-visible{ outline: 2px solid var(--green); outline-offset: 2px; }
+  .lang-btn:hover{ background:#F0F5EE; border-color: var(--green); }
+  .lang-icon{ font-size:.95rem; line-height:1; }
+  .lang-popover{
+    position:absolute; top:calc(100% + 8px); right:0; z-index:60; width:min(340px, 82vw);
+    background: var(--surface); border:1px solid var(--line); border-radius: 12px; padding:16px 18px;
+    box-shadow: 0 12px 32px rgba(15,61,46,.16); font-size:.85rem; color: var(--ink-soft);
+  }
+  .lang-popover p{ margin:0 0 10px; }
+  .lang-popover ul{ margin:0 0 10px; padding-left:18px; }
+  .lang-popover li{ margin-bottom:8px; }
+  .lang-popover b{ color: var(--ink); }
+  .lang-popover .lang-note{ font-size:.78rem; font-style:italic; margin-bottom:0; }
 
   main{ max-width: 1080px; margin: 0 auto; padding: 0 24px 80px; }
   .page{ animation: fadeIn .35s ease; }
@@ -293,26 +303,19 @@
     <button class="tab-btn" data-page="visualizer">Inheritance Lab</button>
     <button class="tab-btn" data-page="pedigree">Pedigree Tool</button>
   </div>
-  <div class="lang-picker">
-    <span class="lang-icon">🌐</span>
-    <select id="lang-select" class="lang-select" title="Translate this page">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="fr">Français</option>
-      <option value="de">Deutsch</option>
-      <option value="it">Italiano</option>
-      <option value="pt">Português</option>
-      <option value="ro">Română</option>
-      <option value="ru">Русский</option>
-      <option value="zh-CN">中文</option>
-      <option value="ar">العربية</option>
-      <option value="hi">हिन्दी</option>
-      <option value="ja">日本語</option>
-      <option value="ko">한국어</option>
-      <option value="tr">Türkçe</option>
-      <option value="pl">Polski</option>
-      <option value="vi">Tiếng Việt</option>
-    </select>
+  <div class="lang-picker" id="lang-picker">
+    <button class="lang-btn" id="lang-btn" title="How to translate this page" aria-expanded="false">
+      <span class="lang-icon">🌐</span> Translate
+    </button>
+    <div class="lang-popover" id="lang-popover" hidden>
+      <p><b>Most browsers can translate this page for you</b> — it's built in and works better than any widget we could add:</p>
+      <ul>
+        <li><b>Chrome / Edge / Brave:</b> look for a translate icon (🌐 or "A") at the right end of the address bar, or right-click anywhere on the page and choose "Translate to [your language]."</li>
+        <li><b>Safari:</b> tap the "Aa" icon in the address bar, then "Translate to [language]."</li>
+        <li><b>Firefox:</b> install the free built-in Firefox Translations feature, or an add-on like "To Google Translate."</li>
+      </ul>
+      <p class="lang-note">We tried building an automatic translator into the page itself, but the free services this would rely on turned out to be unreliable — your browser's own translator is genuinely the better option.</p>
+    </div>
   </div>
 </nav>
 <main>
@@ -433,7 +436,7 @@
       <h2>Draw a family-tree pedigree chart</h2>
       <p>Standard medical-genetics symbols — squares for males, circles for females, filled shapes for affected individuals. Everything here stays in your browser; nothing is uploaded or saved anywhere.</p>
     </div>
-    <div class="disclaimer">⚠️ This tool is for sketching and visualizing family history — it doesn't store, transmit, or save any data. For real patient records, use it as a drawing aid alongside your standard documentation practices, and avoid entering identifying information you wouldn't want visible on someone's screen. Note: the language selector (top right) opens a translated copy of this page through Google's translation service in a new tab — avoid using it on a pedigree containing real patient details, since that page's content would pass through Google's servers to be translated.</div>
+    <div class="disclaimer">⚠️ This tool is for sketching and visualizing family history — it doesn't store, transmit, or save any data. For real patient records, use it as a drawing aid alongside your standard documentation practices, and avoid entering identifying information you wouldn't want visible on someone's screen. Note: if your browser's own built-in translator is active on this page, on-screen text is sent to your browser vendor's translation service to be translated — turn translation off first if you're working with real patient details.</div>
 
     <div class="pedigree-layout">
       <div class="pedigree-toolbar">
@@ -497,19 +500,23 @@
 <footer>Allelium is an educational project, not a medical service. Built for curious minds who like biology, math, and code. 🧬</footer>
 
 <script>
-/* ============================= LANGUAGE SELECTOR ============================= */
-/* Opens this page through Google's translation proxy in a new tab. This is a
-   plainer mechanism than the live in-page widget — no script/cookie/banner
-   fighting with the browser — so it's far more reliable, at the cost of the
-   translated version opening as translate.goog rather than in-place. */
+/* ============================= LANGUAGE HELPER ============================= */
+/* No external translation service — points people to their browser's own
+   built-in page translator, which is reliable and requires nothing from us. */
 (function(){
-  const select = document.getElementById('lang-select');
-  select.addEventListener('change', () => {
-    const lang = select.value;
-    if(lang === 'en') return;
-    const targetUrl = `https://translate.google.com/translate?sl=en&tl=${encodeURIComponent(lang)}&u=${encodeURIComponent(location.href)}`;
-    window.open(targetUrl, '_blank', 'noopener');
-    select.value = 'en';
+  const btn = document.getElementById('lang-btn');
+  const popover = document.getElementById('lang-popover');
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isHidden = popover.hasAttribute('hidden');
+    if(isHidden) popover.removeAttribute('hidden'); else popover.setAttribute('hidden','');
+    btn.setAttribute('aria-expanded', String(isHidden));
+  });
+  document.addEventListener('click', (e) => {
+    if(!popover.hasAttribute('hidden') && !popover.contains(e.target) && e.target !== btn){
+      popover.setAttribute('hidden','');
+      btn.setAttribute('aria-expanded','false');
+    }
   });
 })();
 
