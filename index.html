@@ -207,8 +207,20 @@
   .sim-btn{ width:100%; margin-top:16px; background: var(--green); color:#fff; padding:12px; border-radius:10px; border:none; font-weight:600; }
   .sim-btn:hover{ background: var(--green-deep); }
   .sim-count{ font-family: var(--font-mono); font-size:.8rem; color: var(--ink-soft); text-align:center; margin-top:8px; min-height: 1.2em; }
+  .cross-mode-row{ margin: 4px 0 24px; }
+  .share-card-btn{ width:100%; margin-top:14px; justify-content:center; }
+  .di-punnett{ max-width:480px; }
+  .di-punnett td, .di-punnett th{ padding:8px 3px; font-size:.68rem; }
+  .di-punnett td .pct{ display:none; }
 
   footer{ text-align:center; padding: 32px 24px; color: var(--ink-soft); font-size:.82rem; border-top:1px solid var(--line); }
+  .embed-link{ background:none; border:none; color: var(--green-deep); font-weight:600; font-size:.82rem; text-decoration:underline; cursor:pointer; margin-top:10px; font-family:inherit; }
+  .modal-overlay{ position:fixed; inset:0; background:rgba(15,61,46,.45); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .modal-overlay[hidden]{ display:none; }
+  .modal-box{ background:#fff; border-radius:16px; padding:28px; max-width:440px; width:100%; position:relative; max-height:85vh; overflow-y:auto; text-align:left; }
+  .modal-box h3{ font-size:1.2rem; }
+  .modal-close{ position:absolute; top:14px; right:16px; background:none; border:none; font-size:1.1rem; color: var(--ink-soft); cursor:pointer; }
+  .embed-code{ font-family: var(--font-mono); font-size:.78rem; resize:vertical; width:100%; }
 
   /* ---------- PEDIGREE TOOL ---------- */
   .pedigree-layout{ display:grid; grid-template-columns: 260px 1fr; gap:20px; align-items:start; }
@@ -288,6 +300,53 @@
     #pedigree-svg{ height:auto; }
   }
 
+  /* ---------- QUIZ ---------- */
+  .quiz-wrap{ max-width:640px; margin:0 auto; }
+  .quiz-intro{ text-align:center; background: var(--surface); border:1px solid var(--line); border-radius: var(--radius); padding:36px 28px; }
+  .quiz-intro p{ color: var(--ink-soft); margin-bottom:20px; }
+  .quiz-progress{ display:flex; justify-content:space-between; font-family: var(--font-mono); font-size:.85rem; color: var(--ink-soft); margin-bottom:12px; }
+  .quiz-card{ background: var(--surface); border:1px solid var(--line); border-radius: var(--radius); padding:28px; }
+  .quiz-question{ font-size:1.1rem; font-weight:600; margin-bottom:20px; color: var(--forest-deep); }
+  .quiz-options{ display:flex; flex-direction:column; gap:10px; }
+  .quiz-option{
+    text-align:left; padding:13px 16px; border-radius:10px; border:1px solid var(--line); background:#fff;
+    font-size:.94rem; font-weight:600; color: var(--ink); transition: all .15s;
+  }
+  .quiz-option:hover:not(:disabled){ background:#F0F5EE; border-color: var(--green); }
+  .quiz-option.correct{ background:#E7F3E3; border-color: var(--green); color: var(--green-deep); }
+  .quiz-option.incorrect{ background:#FBEAE6; border-color: var(--rose); color:#8A3B2B; }
+  .quiz-option:disabled{ cursor:default; }
+  .quiz-feedback{ margin-top:16px; padding:14px 16px; border-radius:10px; background:#F0F5EE; font-size:.88rem; color: var(--ink-soft); }
+  .quiz-next-btn{ margin-top:16px; width:100%; }
+  .quiz-results{ text-align:center; background: var(--surface); border:1px solid var(--line); border-radius: var(--radius); padding:40px 28px; }
+  .quiz-results h3{ font-size:1.6rem; }
+  .quiz-results p{ color: var(--ink-soft); margin-bottom:20px; }
+
+  /* ---------- CHROMOSOME MAP ---------- */
+  .karyotype-grid{ display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end; justify-content:center; padding:24px; background: var(--surface); border:1px solid var(--line); border-radius: var(--radius); margin-bottom:20px; }
+  .chrom-btn{
+    display:flex; flex-direction:column; align-items:center; gap:6px; background:none; border:none; padding:0; width:38px;
+  }
+  .chrom-bar{ width:26px; border-radius:6px; background: linear-gradient(180deg, #1B7A4D, #86D06B); transition: transform .15s; }
+  .chrom-btn:hover .chrom-bar, .chrom-btn.active .chrom-bar{ transform: scaleX(1.15); box-shadow: 0 0 0 2px var(--green); }
+  .chrom-btn.active .chrom-bar{ background: linear-gradient(180deg, #0F5C39, #1B7A4D); }
+  .chrom-label{ font-family: var(--font-mono); font-size:.72rem; font-weight:600; color: var(--ink-soft); }
+  .chrom-btn.active .chrom-label{ color: var(--forest-deep); }
+  .chrom-detail{ background: var(--surface); border:1px solid var(--line); border-radius: var(--radius); padding:28px; min-height:180px; }
+  .chrom-detail h3{ font-size:1.2rem; }
+  .chrom-match-list{ list-style:none; margin:14px 0 0; padding:0; }
+  .chrom-match-list li{ border-bottom:1px solid var(--line); padding:10px 0; }
+  .chrom-match-list li:last-child{ border-bottom:none; }
+  .chrom-match-btn{ background:none; border:none; text-align:left; width:100%; font-size:.92rem; font-weight:600; color: var(--forest-deep); display:flex; justify-content:space-between; gap:10px; }
+  .chrom-match-btn:hover{ color: var(--green); }
+  .chrom-match-btn .tag-pill{ font-family: var(--font-mono); font-size:.68rem; font-weight:600; padding:2px 8px; border-radius:999px; color:#fff; flex-shrink:0; }
+
+  /* ---------- GLOSSARY ---------- */
+  .glossary-list{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+  @media (max-width:720px){ .glossary-list{ grid-template-columns: 1fr; } }
+  .glossary-item{ background: var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .glossary-item h4{ font-size:1rem; margin:0 0 6px; color: var(--forest-deep); }
+  .glossary-item p{ font-size:.88rem; color: var(--ink-soft); margin:0; }
 
   .atom-spin{ animation: spin 12s linear infinite; transform-origin: center; }
   @keyframes spin{ to{ transform: rotate(360deg); } }
@@ -302,6 +361,9 @@
     <button class="tab-btn" data-page="explainer">Trait Guide</button>
     <button class="tab-btn" data-page="visualizer">Inheritance Lab</button>
     <button class="tab-btn" data-page="pedigree">Pedigree Tool</button>
+    <button class="tab-btn" data-page="quiz">Quiz</button>
+    <button class="tab-btn" data-page="chromosome">Chromosome Map</button>
+    <button class="tab-btn" data-page="glossary">Glossary</button>
   </div>
   <div class="lang-picker" id="lang-picker">
     <button class="lang-btn" id="lang-btn" title="How to translate this page" aria-expanded="false">
@@ -393,7 +455,15 @@
       <p>Set an inheritance pattern and each parent's alleles. We'll build the real Punnett square, the exact odds, and let you simulate offspring.</p>
     </div>
 
-    <div class="vis-grid">
+    <div class="cross-mode-row">
+      <label class="field-label" style="margin-top:0;">Cross type</label>
+      <select class="field" id="cross-mode-select" style="max-width:280px;">
+        <option value="mono">Single trait (Monohybrid)</option>
+        <option value="di">Two traits (Dihybrid)</option>
+      </select>
+    </div>
+
+    <div class="vis-grid" id="mono-mode">
       <div class="panel">
         <h3>Set up the cross</h3>
         <label class="field-label">Inheritance pattern</label>
@@ -423,8 +493,59 @@
         <table class="punnett" id="punnett-table"></table>
         <div class="odds-callout" id="odds-callout"></div>
         <div class="result-summary" id="result-summary"></div>
+        <button class="tool-btn primary share-card-btn" id="share-mono-btn">📤 Share result as image</button>
         <h3 style="margin-top:22px;">Simulation results</h3>
         <div id="sim-results" style="margin-top:8px;"><p style="color:var(--ink-soft); font-size:.85rem;">Run a simulation to see actual outcomes appear here.</p></div>
+      </div>
+    </div>
+
+    <div class="vis-grid" id="di-mode" hidden>
+      <div class="panel">
+        <h3>Set up the two-trait cross</h3>
+        <p style="font-size:.8rem; color:var(--ink-soft); margin-top:-6px;">Dihybrid mode covers two independent autosomal genes (no X-linked here) — the classic two-trait Mendel cross. Uppercase is always the dominant allele for each gene, same convention as the rest of the site.</p>
+
+        <div class="parent-box">
+          <h4>Parent 1</h4>
+          <label class="field-label">Gene 1 genotype</label>
+          <select class="field di-gene-select" data-parent="1" data-gene="1">
+            <option value="AA">AA</option>
+            <option value="Aa" selected>Aa</option>
+            <option value="aa">aa</option>
+          </select>
+          <label class="field-label">Gene 2 genotype</label>
+          <select class="field di-gene-select" data-parent="1" data-gene="2">
+            <option value="BB">BB</option>
+            <option value="Bb" selected>Bb</option>
+            <option value="bb">bb</option>
+          </select>
+        </div>
+        <div class="parent-box">
+          <h4>Parent 2</h4>
+          <label class="field-label">Gene 1 genotype</label>
+          <select class="field di-gene-select" data-parent="2" data-gene="1">
+            <option value="AA">AA</option>
+            <option value="Aa" selected>Aa</option>
+            <option value="aa">aa</option>
+          </select>
+          <label class="field-label">Gene 2 genotype</label>
+          <select class="field di-gene-select" data-parent="2" data-gene="2">
+            <option value="BB">BB</option>
+            <option value="Bb" selected>Bb</option>
+            <option value="bb">bb</option>
+          </select>
+        </div>
+
+        <button class="sim-btn" id="di-simulate-btn">Simulate 50 offspring</button>
+        <div class="sim-count" id="di-sim-count"></div>
+      </div>
+
+      <div class="panel">
+        <h3>16-box Punnett square</h3>
+        <table class="punnett di-punnett" id="di-punnett-table"></table>
+        <div class="result-summary" id="di-result-summary"></div>
+        <button class="tool-btn primary share-card-btn" id="share-di-btn">📤 Share result as image</button>
+        <h3 style="margin-top:22px;">Simulation results</h3>
+        <div id="di-sim-results" style="margin-top:8px;"><p style="color:var(--ink-soft); font-size:.85rem;">Run a simulation to see actual outcomes appear here.</p></div>
       </div>
     </div>
   </section>
@@ -473,6 +594,8 @@
         <div class="tool-group">
           <button class="tool-btn primary" id="export-png">Download as PNG</button>
           <button class="tool-btn" id="print-pedigree">Print</button>
+          <button class="tool-btn" id="copy-share-link">🔗 Copy share link</button>
+          <p id="share-link-note" style="font-size:.74rem; color:var(--ink-soft); margin:6px 2px 0; min-height:1.2em;"></p>
         </div>
       </div>
 
@@ -495,9 +618,98 @@
     </div>
   </section>
 
+  <!-- ================= QUIZ ================= -->
+  <section class="page" id="page-quiz" hidden>
+    <div class="page-head">
+      <div class="eyebrow">Quiz</div>
+      <h2>Test what you know</h2>
+      <p>Quick multiple-choice rounds pulled straight from the Trait Guide — inheritance patterns, trait vs. condition, and more.</p>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-intro" id="quiz-intro">
+        <p>Each round is 10 random questions from the full 126-entry guide. New questions every time.</p>
+        <button class="btn btn-primary" id="quiz-start-btn">Start a round →</button>
+      </div>
+
+      <div class="quiz-active" id="quiz-active" hidden>
+        <div class="quiz-progress">
+          <span id="quiz-progress-text">Question 1 / 10</span>
+          <span id="quiz-score-text">Score: 0</span>
+        </div>
+        <div class="quiz-card" id="quiz-card"></div>
+      </div>
+
+      <div class="quiz-results" id="quiz-results" hidden>
+        <h3 id="quiz-results-title"></h3>
+        <p id="quiz-results-detail"></p>
+        <button class="btn btn-primary" id="quiz-again-btn">Play another round →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CHROMOSOME MAP ================= -->
+  <section class="page" id="page-chromosome" hidden>
+    <div class="page-head">
+      <div class="eyebrow">Chromosome Map</div>
+      <h2>Where traits actually live</h2>
+      <p>Click a chromosome to see which traits and conditions from the guide are located there. Some classic classroom traits don't have one confirmed gene at all — that's noted honestly where it applies, rather than made up.</p>
+    </div>
+
+    <div class="karyotype-grid" id="karyotype-grid"></div>
+
+    <div class="chrom-detail" id="chrom-detail">
+      <div class="empty-state">
+        <h3>Pick a chromosome above</h3>
+        <p>Matching traits and conditions will show up here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GLOSSARY ================= -->
+  <section class="page" id="page-glossary" hidden>
+    <div class="page-head">
+      <div class="eyebrow">Glossary</div>
+      <h2>Genetics terms, plainly explained</h2>
+      <p>The vocabulary you'll actually run into across this site and in a biology classroom.</p>
+    </div>
+    <input class="search-box" id="glossary-search" placeholder="Search terms…" style="max-width:420px; margin-bottom:20px;">
+    <div class="glossary-list" id="glossary-list"></div>
+  </section>
+
 </main>
 
-<footer>Allelium is an educational project, not a medical service. Built for curious minds who like biology, math, and code. 🧬</footer>
+<footer>
+  Allelium is an educational project, not a medical service. Built for curious minds who like biology, math, and code. 🧬
+  <div><button class="embed-link" id="embed-open-btn">For Teachers: Embed this tool on your class site →</button></div>
+</footer>
+
+<div class="modal-overlay" id="embed-modal" hidden>
+  <div class="modal-box">
+    <button class="modal-close" id="embed-close-btn" title="Close">✕</button>
+    <h3>Embed a tool on your class site</h3>
+    <p style="color:var(--ink-soft); font-size:.88rem;">Pick a tool and a size, then paste the code into your class website, Google Site, or LMS page.</p>
+    <label class="field-label">Tool</label>
+    <select class="field" id="embed-tool-select">
+      <option value="home">Home</option>
+      <option value="explainer">Trait Guide</option>
+      <option value="visualizer">Inheritance Lab</option>
+      <option value="pedigree">Pedigree Tool</option>
+      <option value="quiz">Quiz</option>
+      <option value="chromosome">Chromosome Map</option>
+      <option value="glossary">Glossary</option>
+    </select>
+    <label class="field-label">Width (px)</label>
+    <input class="field" id="embed-width" type="number" value="800" min="300" max="1600">
+    <label class="field-label">Height (px)</label>
+    <input class="field" id="embed-height" type="number" value="650" min="300" max="1400">
+    <label class="field-label">Embed code</label>
+    <textarea class="field embed-code" id="embed-code" readonly rows="4"></textarea>
+    <button class="tool-btn primary" id="embed-copy-btn" style="width:100%; margin-top:10px; justify-content:center;">Copy code</button>
+    <p id="embed-copy-note" style="font-size:.78rem; color:var(--ink-soft); margin-top:8px; min-height:1.2em;"></p>
+  </div>
+</div>
+
 
 <script>
 /* ============================= LANGUAGE HELPER ============================= */
@@ -549,7 +761,7 @@ document.getElementById('logo-hero-holder').innerHTML = atomLogo(120, true);
 
 /* ============================= NAV ============================= */
 const tabBtns = document.querySelectorAll('.tab-btn');
-const pages = { home: document.getElementById('page-home'), explainer: document.getElementById('page-explainer'), visualizer: document.getElementById('page-visualizer'), pedigree: document.getElementById('page-pedigree') };
+const pages = { home: document.getElementById('page-home'), explainer: document.getElementById('page-explainer'), visualizer: document.getElementById('page-visualizer'), pedigree: document.getElementById('page-pedigree'), quiz: document.getElementById('page-quiz'), chromosome: document.getElementById('page-chromosome'), glossary: document.getElementById('page-glossary') };
 function goto(page){
   Object.entries(pages).forEach(([k,el]) => el.hidden = (k !== page));
   tabBtns.forEach(b => b.classList.toggle('active', b.dataset.page === page));
@@ -560,478 +772,478 @@ document.querySelectorAll('[data-goto]').forEach(el => el.addEventListener('clic
 
 /* ============================= TRAIT DATA ============================= */
 const TRAITS = [
-  {id:'widow', name:"Widow's peak", cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D',
+  {id:'widow', name:"Widow's peak", cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D', chromosome:"Not a single confirmed gene (classic teaching example)",
    summary:"A V-shaped hairline point at the center of the forehead.",
    text:"A widow's peak is a classic textbook example of a dominant trait: inheriting just one copy of the dominant allele from either parent is enough to produce the pointed hairline. It has no health effects — it's simply a visible marker of how dominant alleles work."},
-  {id:'earlobe', name:'Attached earlobes', cat:'trait', pattern:'Autosomal Recessive', color:'#1B7A4D',
+  {id:'earlobe', name:'Attached earlobes', cat:'trait', pattern:'Autosomal Recessive', color:'#1B7A4D', chromosome:"Not a single confirmed gene (classic teaching example)",
    summary:"Earlobes that connect directly to the side of the head with no hanging flap.",
    text:"Attached earlobes appear when someone inherits the recessive version of this gene from both parents. Free (hanging) earlobes are dominant. Like most single-gene traits taught in class, real inheritance is a little more nuanced than a strict two-allele model, but this is a solid entry point to recessive inheritance."},
-  {id:'cleftchin', name:'Cleft chin', cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D',
+  {id:'cleftchin', name:'Cleft chin', cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D', chromosome:"Not a single confirmed gene (classic teaching example)",
    summary:"A visible dimple or split in the chin.",
    text:"A cleft chin forms during development when the left and right halves of the jawbone don't fully fuse, leaving a small indentation. It's commonly taught as a dominant trait, meaning one copy of the allele is usually enough to show it."},
-  {id:'tongue', name:'Tongue rolling', cat:'trait', pattern:'Taught as Dominant (simplified)', color:'#1B7A4D',
+  {id:'tongue', name:'Tongue rolling', cat:'trait', pattern:'Taught as Dominant (simplified)', color:'#1B7A4D', chromosome:"Not a single confirmed gene (classic teaching example)",
    summary:"The ability to curl the sides of the tongue into a tube shape.",
    text:"Tongue rolling is the most famous 'simple genetics' example — but it's actually a good lesson in why real biology is messier than textbooks. Studies of identical twins show the ability isn't fully determined by one gene; practice and other genes seem to matter too. We include it here because it's such a common classroom reference, with that caveat attached."},
-  {id:'dimples', name:'Dimples', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D',
+  {id:'dimples', name:'Dimples', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D', chromosome:"Not a single confirmed gene (classic teaching example)",
    summary:"Small natural indentations in the cheeks, most visible when smiling.",
    text:"Dimples are caused by a minor variation in cheek muscle structure. They're usually described as dominant in intro biology, though — like many facial features — more than one gene likely plays a role."},
-  {id:'freckles', name:'Freckles', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D',
+  {id:'freckles', name:'Freckles', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D', chromosome:"16 (MC1R region, simplified)",
    summary:"Small clusters of concentrated melanin on the skin.",
    text:"Freckles are linked to variants in the MC1R gene and related pigment pathways, and are often taught as a dominant trait. In reality, freckle density and sun-sensitivity involve multiple genes working together."},
-  {id:'ptc', name:'PTC bitter-taste sensitivity', cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D',
+  {id:'ptc', name:'PTC bitter-taste sensitivity', cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D', chromosome:"7 (TAS2R38)",
    summary:"The ability to taste a very bitter compound (PTC) that others can't taste at all.",
    text:"This trait comes from the TAS2R38 taste-receptor gene. 'Tasters' carry at least one dominant allele; 'non-tasters' are homozygous recessive. It's one of the most reliable single-gene traits used in real genetics classrooms."},
-  {id:'bloodtype', name:'ABO blood type', cat:'trait', pattern:'Multiple alleles / Codominance', color:'#D9A441',
+  {id:'bloodtype', name:'ABO blood type', cat:'trait', pattern:'Multiple alleles / Codominance', color:'#D9A441', chromosome:"9 (ABO gene)",
    summary:"Determines whether your blood is type A, B, AB, or O.",
    text:"Blood type is controlled by three alleles — IA, IB, and i — where IA and IB are codominant with each other and both dominant over i. That's why type AB exists: someone with one IA and one IB allele expresses both A and B markers simultaneously, rather than one masking the other."},
-  {id:'rh', name:'Rh factor', cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D',
+  {id:'rh', name:'Rh factor', cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D', chromosome:"1 (RH gene)",
    summary:"Whether your blood is Rh-positive or Rh-negative.",
    text:"Rh-positive is dominant over Rh-negative. This matters most during pregnancy: if an Rh-negative parent is carrying an Rh-positive baby, doctors monitor for a specific immune response, which is now routinely managed with preventive treatment."},
-  {id:'colorblind', name:'Red-green color blindness', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'colorblind', name:'Red-green color blindness', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (OPN1LW / OPN1MW)",
    summary:"Difficulty distinguishing red and green hues, due to a change in retinal cone cells.",
    text:"Because the gene sits on the X chromosome, this condition is far more common in men (who have only one X) than in women (who need two recessive copies to be affected). It's not harmful, and most people adapt with tools like colorblind-friendly design settings.",
    helpful:["Colorblind-mode settings exist on most phones, browsers, and games","Apps like color-identifier tools can help in situations like clothing matching","It's not degenerative — it doesn't get worse over time and doesn't affect other aspects of vision"]},
-  {id:'hemophilia', name:'Hemophilia A', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'hemophilia', name:'Hemophilia A', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (F8)",
    summary:"A blood clotting disorder caused by low levels of a clotting protein (Factor VIII).",
    text:"Hemophilia A is carried on the X chromosome, so it mostly affects males, while females are typically carriers. People with hemophilia can bleed longer after injuries and are at risk of internal bleeding, especially in joints.",
    helpful:["Modern factor-replacement therapy allows most people with hemophilia to live full, active lives","A hematologist (blood specialist) manages an individualized treatment plan","Genetic counseling can help families understand carrier and transmission risk"]},
-  {id:'dmd', name:'Duchenne Muscular Dystrophy', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'dmd', name:'Duchenne Muscular Dystrophy', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (DMD gene)",
    summary:"A progressive muscle-weakening condition caused by a mutation in the dystrophin gene.",
    text:"DMD almost exclusively affects boys, since it's X-linked recessive, and usually appears in early childhood as difficulty walking, running, or climbing stairs. It's a serious, progressive condition actively studied in gene-therapy research.",
    helpful:["Care is coordinated by a neuromuscular specialist, often with physical therapy support","Several gene and exon-skipping therapies are approved or in active clinical trials","Organizations like the Muscular Dystrophy Association provide family support and resources"]},
-  {id:'cf', name:'Cystic Fibrosis', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'cf', name:'Cystic Fibrosis', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"7 (CFTR)",
    summary:"A condition affecting the lungs and digestive system, caused by a faulty CFTR gene.",
    text:"Cystic fibrosis causes the body to produce unusually thick mucus, which can clog the lungs and pancreas. It requires two recessive alleles — one from each parent — so both parents are usually unaffected carriers. Newer CFTR-modulator medications have dramatically improved outlook.",
    helpful:["Airway clearance techniques and enzyme supplements are core parts of routine care","CFTR-modulator drugs (like those developed in the last decade) target the root protein defect for many patients","Care is best managed by an accredited CF care center with a full specialist team"]},
-  {id:'sicklecell', name:'Sickle Cell Anemia', cat:'condition', pattern:'Autosomal Recessive / Codominant expression', color:'#C96A5B',
+  {id:'sicklecell', name:'Sickle Cell Anemia', cat:'condition', pattern:'Autosomal Recessive / Codominant expression', color:'#C96A5B', chromosome:"11 (HBB)",
    summary:"A blood disorder causing red blood cells to form a rigid, sickle shape.",
    text:"Two copies of the sickle allele (HbS) cause sickle cell disease. People with just one copy (HbA/HbS) are called carriers, or 'sickle cell trait' — usually healthy, and in some cases with a slight natural resistance to malaria, which is part of why this allele persisted in certain populations.",
    helpful:["Hydroxyurea and newer gene-therapy options can reduce painful sickling episodes","Staying hydrated and avoiding extreme altitude/temperature helps manage trait-related risk","A hematologist can run a simple test to confirm carrier vs. disease status"]},
-  {id:'tay-sachs', name:'Tay-Sachs Disease', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'tay-sachs', name:'Tay-Sachs Disease', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"15 (HEXA)",
    summary:"A rare, serious condition where a missing enzyme allows fatty buildup in nerve cells.",
    text:"Tay-Sachs requires two recessive alleles. It's more common in certain populations (notably Ashkenazi Jewish and French-Canadian communities), which is why targeted carrier screening exists before pregnancy in those communities.",
    helpful:["Preconception carrier screening is widely available and often recommended for at-risk populations","Genetic counselors can walk families through real numeric risk before pregnancy","Support networks exist specifically for Tay-Sachs and related storage-disorder families"]},
-  {id:'pku', name:'Phenylketonuria (PKU)', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'pku', name:'Phenylketonuria (PKU)', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"12 (PAH)",
    summary:"An inability to break down the amino acid phenylalanine, found in protein-rich foods.",
    text:"PKU is caused by two recessive alleles affecting a liver enzyme. Left unmanaged, phenylalanine builds up and can affect brain development — but PKU is a genetics success story: newborn screening plus a carefully managed low-phenylalanine diet allows completely normal development.",
    helpful:["Newborn screening for PKU is standard in most countries, catching it before symptoms appear","A dietitian specializing in metabolic conditions manages the phenylalanine-controlled diet","Special medical formulas exist specifically to meet nutrition needs within the diet's limits"]},
-  {id:'huntington', name:"Huntington's Disease", cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'huntington', name:"Huntington's Disease", cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"4 (HTT)",
    summary:"A progressive brain condition affecting movement, cognition, and mood, usually appearing in adulthood.",
    text:"Huntington's is caused by a repeated DNA sequence in the HTT gene. Because it's dominant, a child of an affected parent has a 50% chance of inheriting it — one of the clearest real-world examples of dominant-pattern odds.",
    helpful:["Predictive genetic testing is available but is a deeply personal decision, usually made with counseling support","Neurologists and movement-disorder specialists coordinate long-term care","Organizations like the Huntington's Disease Society offer family and caregiver resources"]},
-  {id:'marfan', name:'Marfan Syndrome', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'marfan', name:'Marfan Syndrome', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"15 (FBN1)",
    summary:"A connective tissue condition often causing tall stature, long limbs, and heart/aorta risks.",
    text:"Marfan syndrome comes from a mutation in the FBN1 gene, which affects connective tissue throughout the body. It's dominant, so one copy from either parent is enough — but severity varies a lot between individuals.",
    helpful:["Regular cardiology checkups (echocardiograms) are the single most important monitoring step","Some physical activities may need modification to reduce strain on the aorta — a doctor can advise which","Early diagnosis and monitoring have made a major difference in long-term outcomes"]},
-  {id:'albinism', name:'Albinism (Oculocutaneous)', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'albinism', name:'Albinism (Oculocutaneous)', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"11 (TYR, most common type)",
    summary:"Reduced or absent melanin production, affecting skin, hair, and eye pigmentation.",
    text:"Albinism results from two recessive alleles affecting melanin-producing enzymes. It often comes with increased sun sensitivity and some vision differences, but is not otherwise a health condition — many people with albinism live completely typical lives with a few practical adaptations.",
    helpful:["High-SPF sunscreen and UV-protective clothing help manage skin sensitivity","Vision aids like tinted lenses or magnification tools can help with light sensitivity or visual acuity","Organizations like NOAH (National Organization for Albinism and Hypopigmentation) offer community and resources"]},
   /* ---------- More physical & sensory traits ---------- */
-  {id:'hitchhiker-thumb', name:"Hitchhiker's thumb", cat:'trait', pattern:'Autosomal Recessive (simplified)', color:'#1B7A4D',
+  {id:'hitchhiker-thumb', name:"Hitchhiker's thumb", cat:'trait', pattern:'Autosomal Recessive (simplified)', color:'#1B7A4D', chromosome:"Not a single confirmed gene (classic teaching example)",
    summary:"The ability to bend the thumb's top joint backward at a sharp angle.",
    text:"This flexibility comes from the shape of the thumb's tendon and joint. It's commonly taught as a simple recessive trait, though like many flexibility traits, connective tissue differences can play a role too."},
-  {id:'clinodactyly', name:'Clinodactyly (curved pinky)', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D',
+  {id:'clinodactyly', name:'Clinodactyly (curved pinky)', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D', chromosome:"Varies (several genes implicated)",
    summary:"A pinky finger that curves slightly toward the ring finger.",
    text:"Clinodactyly comes from a slightly wedge-shaped middle bone in the pinky. It's usually harmless and purely cosmetic, and is taught as a dominant trait in intro genetics."},
-  {id:'mortons-toe', name:"Morton's toe", cat:'trait', pattern:'Polygenic (simplified)', color:'#1B7A4D',
+  {id:'mortons-toe', name:"Morton's toe", cat:'trait', pattern:'Polygenic (simplified)', color:'#1B7A4D', chromosome:"Polygenic — spread across many chromosomes",
    summary:"A second toe that's longer than the big toe.",
    text:"This foot shape comes from relative bone lengths in the foot and is influenced by multiple genes rather than one single allele. It's a normal anatomical variation seen across many populations."},
-  {id:'curly-hair', name:'Naturally curly hair', cat:'trait', pattern:'Polygenic', color:'#1B7A4D',
+  {id:'curly-hair', name:'Naturally curly hair', cat:'trait', pattern:'Polygenic', color:'#1B7A4D', chromosome:"Polygenic — spread across many chromosomes (incl. chr 1, TCHH)",
    summary:"Hair that grows in loops, curls, or coils instead of straight strands.",
    text:"Hair curl pattern is controlled by several genes affecting the shape of the hair follicle, including the trichohyalin gene. It's a great example of a visible trait that isn't simple dominant/recessive — it's a spectrum, not a switch."},
-  {id:'baldness', name:'Male-pattern baldness', cat:'trait', pattern:'X-linked + polygenic', color:'#1B7A4D',
+  {id:'baldness', name:'Male-pattern baldness', cat:'trait', pattern:'X-linked + polygenic', color:'#1B7A4D', chromosome:"X (AR gene) + polygenic",
    summary:"Progressive hair thinning at the temples and crown, most common in men.",
    text:"A major gene involved (the androgen receptor) sits on the X chromosome, which is why it's often said to be 'inherited from your mother's side' — but several other genes and hormone sensitivity also contribute, making it a genuinely polygenic trait."},
-  {id:'red-hair', name:'Natural red hair', cat:'trait', pattern:'Autosomal Recessive', color:'#1B7A4D',
+  {id:'red-hair', name:'Natural red hair', cat:'trait', pattern:'Autosomal Recessive', color:'#1B7A4D', chromosome:"16 (MC1R)",
    summary:"Red or auburn hair color caused by a variant in the MC1R gene.",
    text:"Red hair typically requires two copies of a recessive MC1R variant, which is also linked to fair skin and freckling. It's found in all populations but is most common in people of Northern and Western European descent."},
-  {id:'blue-eyes', name:'Blue eyes', cat:'trait', pattern:'Autosomal Recessive (simplified)', color:'#1B7A4D',
+  {id:'blue-eyes', name:'Blue eyes', cat:'trait', pattern:'Autosomal Recessive (simplified)', color:'#1B7A4D', chromosome:"15 (OCA2/HERC2 region, simplified)",
    summary:"Light blue eye color caused by reduced melanin in the iris.",
    text:"Blue eyes are commonly taught as recessive to brown, tracing mainly to a variant near the OCA2/HERC2 genes. In reality, eye color involves several genes working together, so this is a simplified teaching model rather than the full picture."},
-  {id:'hazel-eyes', name:'Hazel / green eyes', cat:'trait', pattern:'Polygenic (simplified)', color:'#1B7A4D',
+  {id:'hazel-eyes', name:'Hazel / green eyes', cat:'trait', pattern:'Polygenic (simplified)', color:'#1B7A4D', chromosome:"Polygenic — spread across many chromosomes",
    summary:"A mixed brown-green eye color that shifts depending on lighting.",
    text:"Hazel and green eyes come from intermediate melanin levels and light-scattering effects in the iris, shaped by multiple genes. They don't fit neatly into a single dominant/recessive pair the way older textbooks sometimes suggest."},
-  {id:'heterochromia', name:'Heterochromia (two eye colors)', cat:'trait', pattern:'Variable / Autosomal Dominant (rare inherited form)', color:'#1B7A4D',
+  {id:'heterochromia', name:'Heterochromia (two eye colors)', cat:'trait', pattern:'Variable / Autosomal Dominant (rare inherited form)', color:'#1B7A4D', chromosome:"Varies by cause",
    summary:"Two eyes with different colors, or two colors within one iris.",
    text:"Heterochromia can be inherited in a dominant pattern in some families, but it can also happen sporadically during eye development, or occasionally after an eye injury or condition. On its own it usually has no effect on vision."},
-  {id:'unibrow', name:'Unibrow tendency', cat:'trait', pattern:'Polygenic', color:'#1B7A4D',
+  {id:'unibrow', name:'Unibrow tendency', cat:'trait', pattern:'Polygenic', color:'#1B7A4D', chromosome:"Polygenic — spread across many chromosomes",
    summary:"Eyebrow hair that grows across the bridge of the nose, connecting both brows.",
    text:"Eyebrow density and spread are influenced by several genes related to hair growth patterns. It's a purely cosmetic trait with no health implications."},
-  {id:'long-lashes', name:'Long eyelashes', cat:'trait', pattern:'Polygenic', color:'#1B7A4D',
+  {id:'long-lashes', name:'Long eyelashes', cat:'trait', pattern:'Polygenic', color:'#1B7A4D', chromosome:"Polygenic — spread across many chromosomes",
    summary:"Naturally long, dense eyelash growth.",
    text:"Eyelash length is shaped by multiple genes controlling hair growth cycles. It varies continuously across people rather than following a simple two-allele pattern."},
-  {id:'hairy-ears', name:'Hairy ear rims (hypertrichosis pinnae)', cat:'trait', pattern:'Y-linked (holandric)', color:'#1B7A4D',
+  {id:'hairy-ears', name:'Hairy ear rims (hypertrichosis pinnae)', cat:'trait', pattern:'Y-linked (holandric)', color:'#1B7A4D', chromosome:"Y (holandric — Y-linked)",
    summary:"Coarse hair growth on the outer rim of the ears, passed only from father to son.",
    text:"This is one of the few traits genuinely tied to the Y chromosome, meaning it can only be passed from a father to his sons — never to daughters, since they don't inherit a Y chromosome at all. It's harmless and mostly reported in certain South Asian populations."},
-  {id:'handedness', name:'Handedness (left vs. right)', cat:'trait', pattern:'Polygenic (complex)', color:'#1B7A4D',
+  {id:'handedness', name:'Handedness (left vs. right)', cat:'trait', pattern:'Polygenic (complex)', color:'#1B7A4D', chromosome:"Polygenic — spread across many chromosomes",
    summary:"Whether someone naturally prefers using their left or right hand.",
    text:"Handedness runs in families but doesn't follow a clean dominant/recessive pattern — twin studies suggest genetics explains only part of it, with brain development and environment also playing a role. It's a good example of a trait that's heritable without being simply 'Mendelian.'"},
-  {id:'mid-digital-hair', name:'Mid-digital hair', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D',
+  {id:'mid-digital-hair', name:'Mid-digital hair', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D', chromosome:"Not a single confirmed gene (classic teaching example)",
    summary:"Fine hair growing on the middle segment of the fingers.",
    text:"This is a classic (if inconsistent) example used in genetics classrooms for a simple dominant trait. Its expression varies a lot between individuals and even between fingers on the same hand."},
-  {id:'hypermobility', name:'Joint hypermobility ("double-jointed")', cat:'trait', pattern:'Polygenic', color:'#1B7A4D',
+  {id:'hypermobility', name:'Joint hypermobility ("double-jointed")', cat:'trait', pattern:'Polygenic', color:'#1B7A4D', chromosome:"Polygenic — spread across many chromosomes",
    summary:"Joints that bend further than the typical range of motion.",
    text:"Mild hypermobility is common and usually just reflects looser connective tissue, shaped by several genes. In rarer cases it's linked to a diagnosable connective-tissue condition — worth a doctor's opinion if it comes with frequent pain or dislocations."},
-  {id:'nose-bridge', name:'Nose bridge shape', cat:'trait', pattern:'Polygenic', color:'#1B7A4D',
+  {id:'nose-bridge', name:'Nose bridge shape', cat:'trait', pattern:'Polygenic', color:'#1B7A4D', chromosome:"Polygenic — spread across many chromosomes",
    summary:"Whether the nose bridge is broad, narrow, straight, or curved.",
    text:"Nose shape is one of the most polygenic facial features studied, involving dozens of genes affecting cartilage and bone growth. It's also one of the traits that varies most predictably across ancestral populations, likely shaped by climate adaptation over generations."},
-  {id:'hair-whorl', name:'Hair whorl direction', cat:'trait', pattern:'Polygenic', color:'#1B7A4D',
+  {id:'hair-whorl', name:'Hair whorl direction', cat:'trait', pattern:'Polygenic', color:'#1B7A4D', chromosome:"Polygenic — spread across many chromosomes",
    summary:"The clockwise or counter-clockwise spiral pattern hair grows in at the crown.",
    text:"Most people have a clockwise whorl, and the trait is influenced by several genes rather than a single dominant/recessive pair. It has no functional effect — just a quirky detail of scalp development."},
-  {id:'asparagus-smell', name:'Asparagus-odor detection', cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D',
+  {id:'asparagus-smell', name:'Asparagus-odor detection', cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D', chromosome:"1 (olfactory receptor cluster)",
    summary:"The ability to smell the distinct odor asparagus produces in urine after eating it.",
    text:"Nearly everyone's body produces the same sulfur compounds after eating asparagus, but only some people carry the smell-receptor gene variant needed to detect it. It's a genuinely documented single-gene trait and a fun real-world genetics demonstration."},
-  {id:'photic-sneeze', name:'Photic sneeze reflex ("sun sneezing")', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D',
+  {id:'photic-sneeze', name:'Photic sneeze reflex ("sun sneezing")', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D', chromosome:"Not fully mapped — likely polygenic",
    summary:"Sneezing triggered by sudden exposure to bright light, most often sunlight.",
    text:"Affecting roughly a quarter of people, this reflex is thought to come from crossed-wiring between the optic and sneeze-trigger nerves. It runs in families in a pattern consistent with dominant inheritance, though the exact genes are still being studied."},
-  {id:'cilantro-soap', name:'Cilantro tastes like soap', cat:'trait', pattern:'Variable / partially dominant', color:'#1B7A4D',
+  {id:'cilantro-soap', name:'Cilantro tastes like soap', cat:'trait', pattern:'Variable / partially dominant', color:'#1B7A4D', chromosome:"11 (OR6A2 region)",
    summary:"Perceiving cilantro's flavor as soapy or unpleasant rather than herbal.",
    text:"This perception is linked to variants near an olfactory receptor gene (OR6A2) that's sensitive to the same aldehyde compounds found in soap. It's a real, studied genetic difference in taste perception, not just personal preference."},
-  {id:'earwax-type', name:'Earwax type (wet vs. dry)', cat:'trait', pattern:'Autosomal Recessive', color:'#1B7A4D',
+  {id:'earwax-type', name:'Earwax type (wet vs. dry)', cat:'trait', pattern:'Autosomal Recessive', color:'#1B7A4D', chromosome:"16 (ABCC11)",
    summary:"Whether earwax is naturally sticky and wet, or dry and flaky.",
    text:"A single gene (ABCC11) determines this: the wet-earwax version is dominant, and dry earwax requires two recessive copies. Dry earwax is especially common in East Asian populations, making this one of the clearest, best-studied single-gene traits in humans."},
-  {id:'lactose-intolerance', name:'Adult lactose intolerance', cat:'trait', pattern:'Autosomal Recessive (lactase persistence is dominant)', color:'#1B7A4D',
+  {id:'lactose-intolerance', name:'Adult lactose intolerance', cat:'trait', pattern:'Autosomal Recessive (lactase persistence is dominant)', color:'#1B7A4D', chromosome:"2 (LCT/MCM6 region)",
    summary:"Reduced ability to digest lactose (milk sugar) after childhood.",
    text:"Most mammals naturally lose lactase enzyme production after weaning; the ability to keep digesting milk into adulthood ('lactase persistence') is a dominant trait that spread more recently in some dairy-farming populations. People without it can still enjoy dairy in smaller amounts or with lactase supplements."},
-  {id:'alcohol-flush', name:'Alcohol flush reaction', cat:'trait', pattern:'Autosomal Dominant / Co-dominant', color:'#1B7A4D',
+  {id:'alcohol-flush', name:'Alcohol flush reaction', cat:'trait', pattern:'Autosomal Dominant / Co-dominant', color:'#1B7A4D', chromosome:"12 (ALDH2)",
    summary:"Facial flushing, warmth, and rapid heartbeat after drinking alcohol.",
    text:"This happens when a variant in the ALDH2 gene slows the breakdown of a toxic alcohol byproduct (acetaldehyde). It's especially common in East Asian populations and is also linked to a higher sensitivity to alcohol's effects overall."},
-  {id:'norovirus-resistance', name:'Norovirus resistance (FUT2 variant)', cat:'trait', pattern:'Autosomal Recessive', color:'#1B7A4D',
+  {id:'norovirus-resistance', name:'Norovirus resistance (FUT2 variant)', cat:'trait', pattern:'Autosomal Recessive', color:'#1B7A4D', chromosome:"19 (FUT2)",
    summary:"Natural resistance to the most common strains of stomach-flu-causing norovirus.",
    text:"People with two copies of a particular FUT2 gene variant (sometimes called 'non-secretors') don't produce the cell-surface sugars that most norovirus strains use to infect cells. It's a great example of how a single gene can shape infectious-disease susceptibility."},
-  {id:'altitude-adaptation', name:'High-altitude adaptation', cat:'trait', pattern:'Autosomal Dominant (population-specific)', color:'#1B7A4D',
+  {id:'altitude-adaptation', name:'High-altitude adaptation', cat:'trait', pattern:'Autosomal Dominant (population-specific)', color:'#1B7A4D', chromosome:"2 (EPAS1, population-specific)",
    summary:"Genetic adaptations that help some populations thrive at very high elevations.",
    text:"Some Tibetan and Andean populations carry variants (like one in the EPAS1 gene) that help their bodies use oxygen more efficiently at altitude, without over-thickening the blood the way most people's bodies do. It's one of the fastest-spreading known adaptations in recent human evolution."},
-  {id:'duffy-malaria', name:'Duffy-negative blood type (malaria resistance)', cat:'trait', pattern:'Autosomal Recessive (population-specific)', color:'#D9A441',
+  {id:'duffy-malaria', name:'Duffy-negative blood type (malaria resistance)', cat:'trait', pattern:'Autosomal Recessive (population-specific)', color:'#D9A441', chromosome:"1 (ACKR1/DARC gene)",
    summary:"A red blood cell variant that provides natural resistance to certain malaria parasites.",
    text:"People who are 'Duffy-negative' lack a specific surface protein that the malaria parasite Plasmodium vivax uses to enter red blood cells. This variant is extremely common in parts of Sub-Saharan Africa, where it likely spread because of the survival advantage it offered."},
-  {id:'supertaster', name:'"Supertaster" status', cat:'trait', pattern:'Polygenic (TAS2R38 + others)', color:'#1B7A4D',
+  {id:'supertaster', name:'"Supertaster" status', cat:'trait', pattern:'Polygenic (TAS2R38 + others)', color:'#1B7A4D', chromosome:"7 (TAS2R38) + others",
    summary:"Unusually strong sensitivity to bitter flavors, tied to extra taste buds.",
    text:"Supertasters tend to have more fungiform papillae (the small bumps that house taste buds) and stronger versions of bitter-taste receptor genes. It can affect food preferences — many supertasters find vegetables like broccoli or coffee unusually bitter."},
-  {id:'kell-bloodgroup', name:'Kell blood group', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#D9A441',
+  {id:'kell-bloodgroup', name:'Kell blood group', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#D9A441', chromosome:"7 (KEL gene)",
    summary:"A blood-type marker system, similar in concept to ABO but based on a different gene.",
    text:"Being 'Kell-positive' is dominant over 'Kell-negative.' It matters mainly in blood transfusions and pregnancy, where a Kell-mismatch between parent and baby is monitored similarly to Rh factor."},
-  {id:'hla-type', name:'HLA type (immune "fingerprint")', cat:'trait', pattern:'Polygenic / Highly co-dominant', color:'#D9A441',
+  {id:'hla-type', name:'HLA type (immune "fingerprint")', cat:'trait', pattern:'Polygenic / Highly co-dominant', color:'#D9A441', chromosome:"6 (HLA region)",
    summary:"A set of genes that help your immune system tell 'self' from 'foreign.'",
    text:"HLA genes are some of the most variable in the human genome, and everyone typically expresses both copies they inherit (true codominance). This is why organ and bone-marrow transplants require careful HLA matching between donor and recipient."},
-  {id:'polydactyly', name:'Polydactyly (extra fingers or toes)', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D',
+  {id:'polydactyly', name:'Polydactyly (extra fingers or toes)', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D', chromosome:"Varies (several genes implicated)",
    summary:"Being born with one or more extra fingers or toes.",
    text:"Polydactyly is usually harmless and, in its simplest forms, is taught as a dominant trait, though it can occasionally be a feature of a broader genetic syndrome. Extra digits can often be surgically adjusted in infancy if a family chooses to."},
-  {id:'brachydactyly', name:'Brachydactyly (short fingers/toes)', cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D',
+  {id:'brachydactyly', name:'Brachydactyly (short fingers/toes)', cat:'trait', pattern:'Autosomal Dominant', color:'#1B7A4D', chromosome:"Varies by subtype",
    summary:"Unusually short fingers or toes relative to hand or foot size.",
    text:"Several distinct forms exist, most inherited in a dominant pattern, caused by shortened bones in the digits. It's typically a harmless cosmetic variation, though a doctor can rule out associated conditions if it's combined with other features."},
-  {id:'syndactyly', name:'Syndactyly (webbed fingers/toes)', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D',
+  {id:'syndactyly', name:'Syndactyly (webbed fingers/toes)', cat:'trait', pattern:'Autosomal Dominant (simplified)', color:'#1B7A4D', chromosome:"Varies by subtype",
    summary:"Two or more fingers or toes that are partially or fully fused together.",
    text:"Simple syndactyly (skin only, no bone fusion) is often inherited in a dominant pattern and is easily corrected surgically if desired. More complex forms can be part of a broader syndrome, which a geneticist can help evaluate."},
-  {id:'situs-inversus', name:'Situs inversus', cat:'trait', pattern:'Autosomal Recessive', color:'#1B7A4D',
+  {id:'situs-inversus', name:'Situs inversus', cat:'trait', pattern:'Autosomal Recessive', color:'#1B7A4D', chromosome:"Varies (several genes implicated)",
    summary:"A mirror-image arrangement of the internal organs (heart, liver, etc. on the opposite side).",
    text:"This happens when a recessive gene affecting early embryonic left-right patterning is inherited from both parents. Most people with situs inversus have no symptoms at all and only discover it incidentally, such as during an X-ray."},
 
   /* ---------- Autosomal Dominant conditions ---------- */
-  {id:'achondroplasia', name:'Achondroplasia', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'achondroplasia', name:'Achondroplasia', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"4 (FGFR3)",
    summary:"The most common form of dwarfism, caused by a variant in the FGFR3 gene affecting bone growth.",
    text:"Achondroplasia affects how cartilage turns into bone, leading to shorter limbs relative to torso length. Most cases arise from a brand-new (not inherited) mutation, though a parent with achondroplasia has a 50% chance of passing it on.",
    helpful:["Regular monitoring by a specialist helps manage joint and spine health over time","Organizations like Little People of America offer community, resources, and advocacy","Most people with achondroplasia live full, independent lives with routine care"]},
-  {id:'neurofibromatosis1', name:'Neurofibromatosis Type 1', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'neurofibromatosis1', name:'Neurofibromatosis Type 1', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"17 (NF1)",
    summary:"A condition causing benign tumors to grow along nerves, plus characteristic skin spots.",
    text:"NF1 comes from a variant in a tumor-suppressor gene, so one altered copy is enough to cause it. Severity varies enormously between individuals, from very mild skin findings to more involved nerve or bone issues.",
    helpful:["Annual checkups with a neurologist or NF specialist help catch changes early","Most skin tumors (neurofibromas) are benign and only removed if they cause discomfort","The Children's Tumor Foundation offers family resources and connects people to specialized clinics"]},
-  {id:'familial-hypercholesterolemia', name:'Familial Hypercholesterolemia', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'familial-hypercholesterolemia', name:'Familial Hypercholesterolemia', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"19 (LDLR, most common)",
    summary:"A condition causing very high LDL ('bad') cholesterol from birth, raising early heart disease risk.",
    text:"A single altered copy of a gene involved in clearing cholesterol from the blood is enough to cause it, and levels are usually elevated from childhood — well before lifestyle factors would typically explain it.",
    helpful:["Cholesterol-lowering medications (statins and others) are often started earlier than typical guidelines suggest","Family cascade screening helps identify other relatives who may also carry it","A cardiologist or lipid specialist can build a personalized long-term monitoring plan"]},
-  {id:'adpkd', name:'Polycystic Kidney Disease (Autosomal Dominant)', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'adpkd', name:'Polycystic Kidney Disease (Autosomal Dominant)', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"16 (PKD1, most common)",
    summary:"A condition causing fluid-filled cysts to gradually grow in the kidneys.",
    text:"ADPKD usually shows up in adulthood, with cysts slowly enlarging the kidneys over years and sometimes affecting function. It's one of the most common inherited kidney conditions, and having one affected parent gives a 50% inheritance chance.",
    helpful:["Managing blood pressure carefully is one of the most protective long-term steps","Newer medications can slow cyst growth in some patients — a nephrologist can advise","Regular imaging and kidney-function monitoring catches changes early"]},
-  {id:'eds-classic', name:'Ehlers-Danlos Syndrome (classic type)', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'eds-classic', name:'Ehlers-Danlos Syndrome (classic type)', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"9 (COL5A1)",
    summary:"A connective tissue condition causing very stretchy skin, joint hypermobility, and fragile tissue.",
    text:"Classic EDS comes from a variant affecting collagen structure. Severity varies a lot, and some forms carry higher risks for tissue or vessel fragility, so an accurate subtype diagnosis matters.",
    helpful:["Physical therapy focused on joint stabilization (not just stretching) is often recommended","Protective gear during sports can reduce injury risk for hypermobile joints","The Ehlers-Danlos Society offers subtype-specific guidance and community support"]},
-  {id:'osteogenesis-imperfecta', name:'Osteogenesis Imperfecta (brittle bone disease)', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'osteogenesis-imperfecta', name:'Osteogenesis Imperfecta (brittle bone disease)', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"17 (COL1A1, most common)",
    summary:"A condition causing bones to fracture more easily than usual, due to a collagen variant.",
    text:"Severity ranges widely, from a few extra fractures over a lifetime to much more significant bone fragility. Most forms are dominant, meaning one altered copy of the relevant gene is enough to cause it.",
    helpful:["Bone-strengthening medications (bisphosphonates) are commonly used under specialist care","Low-impact exercise like swimming can build muscle support without high fracture risk","An orthopedic specialist experienced with OI helps tailor precautions to the specific severity"]},
-  {id:'brca', name:'BRCA1 / BRCA2 gene variants', cat:'condition', pattern:'Autosomal Dominant (increased risk, not certainty)', color:'#C96A5B',
+  {id:'brca', name:'BRCA1 / BRCA2 gene variants', cat:'condition', pattern:'Autosomal Dominant (increased risk, not certainty)', color:'#C96A5B', chromosome:"17 (BRCA1) or 13 (BRCA2)",
    summary:"Inherited gene variants that significantly raise the lifetime risk of breast and ovarian cancer (and some other cancers).",
    text:"Carrying a BRCA1 or BRCA2 variant increases risk substantially compared to the general population, but it is not a guarantee that cancer will develop — many carriers never do. It's inherited in a dominant pattern, so a carrier's child has a 50% chance of inheriting the same variant.",
    helpful:["Enhanced screening schedules (earlier and more frequent) are standard for known carriers","A genetic counselor can walk through personalized risk numbers, which vary by specific variant and family history","Preventive options exist and are a deeply personal decision best made with a specialist team"]},
-  {id:'long-qt', name:'Long QT Syndrome', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'long-qt', name:'Long QT Syndrome', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"11 (KCNQ1, most common type)",
    summary:"An inherited heart-rhythm condition that can cause dangerous fast heartbeats, especially during exercise or stress.",
    text:"It's caused by variants affecting the heart's electrical signaling. Many people with Long QT have no symptoms day-to-day, but it's important to identify because certain medications and activities can trigger dangerous episodes.",
    helpful:["A cardiologist can confirm diagnosis with an ECG and recommend activity guidelines","Beta-blocker medications are a common and effective preventive treatment","Family members are usually also screened, since it runs in families at 50% inheritance odds"]},
-  {id:'hcm', name:'Hypertrophic Cardiomyopathy', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'hcm', name:'Hypertrophic Cardiomyopathy', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"14 (MYH7, most common)",
    summary:"A condition causing the heart muscle, especially the walls of the left ventricle, to thicken abnormally.",
    text:"HCM is one of the most common inherited heart conditions and a well-known cause of sudden cardiac issues in young athletes, which is why screening matters. Many people live normal lives with monitoring and, when needed, treatment.",
    helpful:["A cardiologist can evaluate with echocardiogram and guide safe activity levels","Some medications and, in select cases, procedures can reduce symptoms significantly","Family screening is recommended since first-degree relatives have a 50% inheritance chance"]},
-  {id:'fap', name:'Familial Adenomatous Polyposis', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'fap', name:'Familial Adenomatous Polyposis', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"5 (APC)",
    summary:"A condition causing hundreds to thousands of polyps to form in the colon, with a very high risk of colon cancer if untreated.",
    text:"FAP comes from a variant in the APC tumor-suppressor gene. Because the cancer risk is so high without monitoring, people known to carry the variant typically begin colon screening much earlier than the general population.",
    helpful:["Early and frequent colonoscopies allow polyps to be removed before they become cancerous","A gastroenterologist familiar with FAP builds a personalized surveillance schedule","Genetic counseling helps other family members decide whether to get tested"]},
-  {id:'retinoblastoma', name:'Hereditary Retinoblastoma', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'retinoblastoma', name:'Hereditary Retinoblastoma', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"13 (RB1)",
    summary:"A rare eye cancer that develops in young children, sometimes running in families.",
    text:"The hereditary form comes from an inherited variant in the RB1 tumor-suppressor gene and often affects both eyes. Early detection dramatically improves outcomes, which is why regular eye exams matter for infants in affected families.",
    helpful:["Early, frequent eye exams in infancy allow very early detection when treatment is most effective","Pediatric ophthalmologists and oncologists coordinate specialized treatment plans","Survivors are monitored long-term, since the same gene variant can slightly raise risk for other cancers later in life"]},
-  {id:'cmt1', name:'Charcot-Marie-Tooth Disease (Type 1)', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'cmt1', name:'Charcot-Marie-Tooth Disease (Type 1)', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"17 (PMP22, most common type)",
    summary:"A condition affecting peripheral nerves, leading to muscle weakness and numbness, mostly in the feet and legs.",
    text:"CMT1 is one of the most common inherited nerve disorders. It usually progresses slowly, and most people remain mobile and independent throughout life with the right support.",
    helpful:["Physical and occupational therapy help maintain strength and mobility","Custom orthotics or braces can improve balance and reduce fall risk","A neurologist specializing in neuromuscular conditions can monitor progression over time"]},
-  {id:'vwd', name:'Von Willebrand Disease (Type 1)', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'vwd', name:'Von Willebrand Disease (Type 1)', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"12 (VWF)",
    summary:"The most common inherited bleeding disorder, causing blood to clot more slowly than usual.",
    text:"Type 1, the mildest and most common form, comes from reduced levels of a clotting protein. Many people don't realize they have it until a surgery or dental procedure causes unexpectedly heavy bleeding.",
    helpful:["A hematologist can confirm diagnosis with specific clotting-factor blood tests","Desmopressin (a medication) can boost clotting factor levels before planned procedures","Wearing a medical alert bracelet helps in emergencies where bleeding risk matters"]},
-  {id:'waardenburg', name:'Waardenburg Syndrome', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'waardenburg', name:'Waardenburg Syndrome', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"2 (PAX3, most common type)",
    summary:"A condition affecting pigmentation and hearing, often including a white forelock of hair and pale or differently colored eyes.",
    text:"It comes from variants affecting the migration of pigment cells during development, which is why it often affects hearing too (pigment cells play a role in the inner ear). Hearing loss severity varies widely between individuals.",
    helpful:["A hearing test in infancy helps catch any hearing loss early, when intervention is most effective","Hearing aids or cochlear implants can help if hearing loss is significant","Genetic counseling can clarify the specific subtype and associated features for a family"]},
-  {id:'treacher-collins', name:'Treacher Collins Syndrome', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'treacher-collins', name:'Treacher Collins Syndrome', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"5 (TCOF1)",
    summary:"A condition affecting the development of facial bones, especially the cheekbones, jaw, and ears.",
    text:"It comes from a variant affecting facial bone and cartilage development in the embryo. Intelligence and life expectancy are typically unaffected — the condition is primarily structural.",
    helpful:["A craniofacial specialist team can plan reconstructive procedures if desired, often over several stages","Hearing support (aids or bone-conduction devices) helps if ear structure affects hearing","Support groups connect families with shared experience navigating school and social settings"]},
-  {id:'noonan', name:'Noonan Syndrome', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B',
+  {id:'noonan', name:'Noonan Syndrome', cat:'condition', pattern:'Autosomal Dominant', color:'#C96A5B', chromosome:"12 (PTPN11, most common)",
    summary:"A condition causing distinct facial features, shorter stature, and sometimes heart defects.",
    text:"Noonan syndrome comes from variants in a set of genes involved in cell growth signaling. Heart involvement varies from none to significant, so cardiac screening is a standard part of care.",
    helpful:["An echocardiogram at diagnosis helps identify any heart involvement early","Growth hormone therapy is sometimes used to support height, decided case-by-case","A geneticist can coordinate the multi-specialist care team many families benefit from"]},
-  {id:'progeria', name:'Progeria (Hutchinson-Gilford Syndrome)', cat:'condition', pattern:'Autosomal Dominant (usually a new mutation)', color:'#C96A5B',
+  {id:'progeria', name:'Progeria (Hutchinson-Gilford Syndrome)', cat:'condition', pattern:'Autosomal Dominant (usually a new mutation)', color:'#C96A5B', chromosome:"1 (LMNA)",
    summary:"An extremely rare condition causing rapid, premature aging-like changes beginning in early childhood.",
    text:"Progeria almost always comes from a brand-new mutation rather than being inherited from a parent, meaning parents of an affected child aren't usually carriers themselves. Research into progeria has also given broader insight into normal aging biology.",
    helpful:["The Progeria Research Foundation coordinates specialized care and active clinical trials","A cardiologist is a key part of the care team, since heart health is the primary focus of monitoring","Recent targeted medications have shown real progress in extending quality of life"]},
-  {id:'factor-v-leiden', name:'Factor V Leiden', cat:'condition', pattern:'Autosomal Dominant (increases risk, not certainty)', color:'#C96A5B',
+  {id:'factor-v-leiden', name:'Factor V Leiden', cat:'condition', pattern:'Autosomal Dominant (increases risk, not certainty)', color:'#C96A5B', chromosome:"1 (F5)",
    summary:"A common inherited variant that raises the risk of forming blood clots.",
    text:"Most carriers never develop a clot, but risk increases further with other factors like surgery, pregnancy, or long periods of immobility. It's one of the most common inherited clotting-risk variants, especially in people of European descent.",
    helpful:["Telling your doctor before surgery or long flights allows extra precautions like compression stockings","Combined hormonal birth control carries added clot risk for carriers — worth discussing alternatives with a doctor","Most carriers live completely normal lives with just situational awareness, not daily treatment"]},
 
   /* ---------- Autosomal Recessive conditions ---------- */
-  {id:'cah', name:'Congenital Adrenal Hyperplasia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'cah', name:'Congenital Adrenal Hyperplasia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"6 (CYP21A2)",
    summary:"A condition affecting the adrenal glands' ability to produce certain hormones correctly.",
    text:"CAH comes from two recessive alleles affecting an enzyme needed for cortisol production, which can also affect other hormone levels. Newborn screening catches most cases early, allowing prompt hormone-replacement treatment.",
    helpful:["Hormone replacement therapy, closely monitored by an endocrinologist, manages the condition effectively","Newborn screening means most cases are caught and treated before symptoms become serious","Regular endocrinology follow-ups adjust treatment as a child grows"]},
-  {id:'wilsons', name:"Wilson's Disease", cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'wilsons', name:"Wilson's Disease", cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"13 (ATP7B)",
    summary:"A condition causing copper to build up in the liver, brain, and other organs.",
    text:"It comes from two recessive alleles affecting a copper-transport protein. Caught early, it's very manageable — the challenge is that symptoms can be subtle at first, so genetic or family-history awareness helps with early diagnosis.",
    helpful:["Copper-chelating medications help the body remove excess copper safely","A low-copper diet (avoiding organ meats, shellfish, and certain nuts) supports treatment","Regular liver function monitoring by a specialist tracks treatment effectiveness"]},
-  {id:'hemochromatosis', name:'Hereditary Hemochromatosis', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'hemochromatosis', name:'Hereditary Hemochromatosis', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"6 (HFE)",
    summary:"A condition causing the body to absorb too much iron from food over time.",
    text:"It requires two recessive alleles and is one of the most common inherited conditions in people of Northern European descent. Excess iron builds up gradually, so it's often not caught until adulthood unless family history prompts earlier testing.",
    helpful:["Regular blood draws (therapeutic phlebotomy) is a simple, effective way to reduce iron levels","Routine blood tests can catch it early, especially if a family member has been diagnosed","Avoiding iron and vitamin C supplements (which boosts iron absorption) is often advised by a doctor"]},
-  {id:'alpha1-antitrypsin', name:'Alpha-1 Antitrypsin Deficiency', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'alpha1-antitrypsin', name:'Alpha-1 Antitrypsin Deficiency', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"14 (SERPINA1)",
    summary:"A condition that can lead to lung and liver problems due to a missing protective protein.",
    text:"Two recessive alleles reduce levels of a protein that normally protects lung tissue. Effects vary a lot — some people have no symptoms, while others develop earlier lung issues, especially if they smoke.",
    helpful:["Avoiding smoking is the single most protective step for anyone with this deficiency","Specific enzyme replacement therapy exists for more significant cases","A pulmonologist can monitor lung function over time and adjust care as needed"]},
-  {id:'sma', name:'Spinal Muscular Atrophy', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'sma', name:'Spinal Muscular Atrophy', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"5 (SMN1)",
    summary:"A condition affecting the nerve cells that control muscle movement, leading to progressive muscle weakness.",
    text:"SMA comes from two recessive alleles affecting a gene needed for motor neuron survival. It's one of the biggest recent success stories in genetics — newborn screening plus new gene therapies have dramatically changed outcomes in the last several years.",
    helpful:["Newborn screening now catches SMA in many places before symptoms even start","Gene therapy and other disease-modifying treatments have transformed outcomes when started early","A multidisciplinary neuromuscular team coordinates physical therapy, breathing support, and treatment"]},
-  {id:'galactosemia', name:'Galactosemia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'galactosemia', name:'Galactosemia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"9 (GALT)",
    summary:"An inability to properly break down galactose, a sugar found in milk.",
    text:"Two recessive alleles affect the enzyme needed to process galactose, which can build up and cause serious problems in newborns if untreated. It's part of standard newborn screening in most places, allowing treatment before symptoms start.",
    helpful:["A galactose-free diet (avoiding dairy and certain other foods) is the primary and highly effective treatment","A metabolic dietitian helps navigate ingredient labels and safe alternatives","Regular follow-up with a metabolic specialist tracks growth and development"]},
-  {id:'msud', name:'Maple Syrup Urine Disease', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'msud', name:'Maple Syrup Urine Disease', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"19 (BCKDHA, most common)",
    summary:"A condition preventing the body from properly breaking down certain amino acids, giving urine a sweet, maple-syrup-like smell.",
    text:"Two recessive alleles affect an enzyme needed to process specific amino acids from protein. It's caught through newborn screening in most places, and a carefully managed diet allows normal development.",
    helpful:["A specialized low-protein diet, managed by a metabolic dietitian, is the core of treatment","Newborn screening allows treatment to start before symptoms develop","Regular blood monitoring helps fine-tune the diet as a child grows"]},
-  {id:'gaucher', name:'Gaucher Disease', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'gaucher', name:'Gaucher Disease', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"1 (GBA)",
    summary:"A condition where a missing enzyme causes fatty substances to build up in the liver, spleen, and bone marrow.",
    text:"It requires two recessive alleles and is more common in people of Ashkenazi Jewish descent, similar to Tay-Sachs. Severity varies widely, and effective enzyme-replacement therapies exist for many patients.",
    helpful:["Enzyme replacement therapy has significantly improved quality of life for many patients","A hematologist familiar with Gaucher disease coordinates ongoing monitoring","Carrier screening is often recommended for at-risk populations before pregnancy"]},
-  {id:'fanconi-anemia', name:'Fanconi Anemia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'fanconi-anemia', name:'Fanconi Anemia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"Varies (over 20 genes implicated)",
    summary:"A condition affecting bone marrow's ability to make healthy blood cells, along with other developmental differences.",
    text:"It comes from two recessive alleles affecting DNA-repair genes, which is also why it's associated with a higher long-term cancer risk. Bone marrow transplants have significantly improved outcomes for many patients.",
    helpful:["Regular blood counts help catch bone marrow changes early","Bone marrow/stem cell transplant is a major and effective treatment option for many patients","The Fanconi Anemia Research Fund connects families to specialized centers and current research"]},
-  {id:'usher-syndrome', name:'Usher Syndrome', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'usher-syndrome', name:'Usher Syndrome', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"Varies by subtype (multiple genes)",
    summary:"A condition causing both hearing loss and progressive vision loss (retinitis pigmentosa).",
    text:"Usher syndrome comes from two recessive alleles affecting proteins used by both the inner ear and retina. Type and severity vary, with some forms present from birth and others progressing more gradually.",
    helpful:["Early hearing and vision evaluation allows tools and supports to be introduced proactively","Orientation and mobility training helps adapt as vision changes over time","Cochlear implants and low-vision aids can meaningfully support daily life"]},
-  {id:'ataxia-telangiectasia', name:'Ataxia-Telangiectasia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'ataxia-telangiectasia', name:'Ataxia-Telangiectasia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"11 (ATM)",
    summary:"A condition affecting movement coordination and the immune system, usually appearing in early childhood.",
    text:"It comes from two recessive alleles affecting a gene involved in DNA repair, which is also why it raises infection and certain cancer risks. Care is typically coordinated across neurology, immunology, and other specialists.",
    helpful:["A multidisciplinary care team helps manage the condition's several different aspects together","Physical and occupational therapy support mobility and daily function","Immune monitoring helps catch and treat infections early, since immune function is often affected"]},
-  {id:'werner-syndrome', name:'Werner Syndrome', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'werner-syndrome', name:'Werner Syndrome', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"8 (WRN)",
    summary:"A rare condition causing accelerated aging-like changes beginning in early adulthood.",
    text:"It comes from two recessive alleles affecting a gene involved in DNA maintenance. Unlike progeria, symptoms typically don't appear until the teenage years or early twenties.",
    helpful:["Regular cardiovascular and cancer screening is important, since risk for both increases with this condition","A specialist familiar with premature-aging conditions can coordinate long-term monitoring","Support communities connect patients with shared experience and current research updates"]},
-  {id:'xeroderma-pigmentosum', name:'Xeroderma Pigmentosum', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'xeroderma-pigmentosum', name:'Xeroderma Pigmentosum', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"Varies by subtype (multiple genes)",
    summary:"A condition causing extreme sensitivity to UV light, with a very high risk of skin cancer from sun exposure.",
    text:"Two recessive alleles impair the body's ability to repair UV-damaged DNA, so ordinary sun exposure carries much higher cancer risk than usual. Strict sun protection from an early age makes a major difference in outcomes.",
    helpful:["Rigorous sun protection — UV-blocking clothing, window film, and avoiding daytime outdoor exposure — is essential","Regular full-body skin checks with a dermatologist help catch any changes early","Support organizations like the XP Society connect families with specialized resources"]},
-  {id:'evc-syndrome', name:'Ellis-van Creveld Syndrome', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'evc-syndrome', name:'Ellis-van Creveld Syndrome', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"4 (EVC/EVC2)",
    summary:"A condition affecting bone growth, often causing short stature, extra fingers, and sometimes heart defects.",
    text:"It comes from two recessive alleles and is notably more common in certain communities, including the Old Order Amish, due to founder effects in smaller founding populations. Care usually involves a team addressing the skeletal, dental, and cardiac aspects together.",
    helpful:["An echocardiogram at diagnosis checks for the heart defects that sometimes accompany this condition","Orthopedic follow-up supports healthy bone and joint development over time","A geneticist can explain population-specific inheritance risk for families in higher-prevalence communities"]},
-  {id:'bardet-biedl', name:'Bardet-Biedl Syndrome', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'bardet-biedl', name:'Bardet-Biedl Syndrome', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"Varies by subtype (over 20 genes)",
    summary:"A condition affecting vision, weight regulation, kidney function, and several other body systems.",
    text:"It comes from two recessive alleles affecting tiny cell structures called cilia, which explains why it touches so many different organs at once. Care typically involves several specialists working together over a person's lifetime.",
    helpful:["Regular vision monitoring helps track and adapt to progressive vision changes","A kidney specialist (nephrologist) is often part of long-term monitoring","Support groups connect families managing the condition's many different aspects"]},
-  {id:'congenital-deafness-gjb2', name:'Congenital Deafness (GJB2-related)', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'congenital-deafness-gjb2', name:'Congenital Deafness (GJB2-related)', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"13 (GJB2)",
    summary:"The most common genetic cause of hearing loss present from birth.",
    text:"It comes from two recessive alleles affecting a protein (connexin-26) needed for normal inner-ear function. Many affected children have hearing parents who are unaffected carriers, since the trait is recessive.",
    helpful:["Newborn hearing screening allows early identification and intervention","Hearing aids or cochlear implants, started early, support strong language development","Learning sign language alongside spoken language is a personal family choice many find valuable"]},
-  {id:'biotinidase-deficiency', name:'Biotinidase Deficiency', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'biotinidase-deficiency', name:'Biotinidase Deficiency', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"3 (BTD)",
    summary:"A condition preventing the body from recycling biotin (vitamin B7) properly.",
    text:"Two recessive alleles affect the enzyme that recycles biotin from food. It's part of standard newborn screening, and daily biotin supplementation is a simple, highly effective treatment.",
    helpful:["Daily biotin supplements, prescribed by a doctor, fully prevent symptoms in most cases","Newborn screening typically catches this before any symptoms appear","Lifelong supplementation is simple to maintain once diagnosed"]},
-  {id:'thalassemia-beta', name:'Beta Thalassemia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'thalassemia-beta', name:'Beta Thalassemia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"11 (HBB)",
    summary:"A blood disorder reducing the body's ability to make normal hemoglobin, leading to anemia.",
    text:"Two recessive alleles reduce beta-globin production; having just one copy (thalassemia trait) usually causes mild or no anemia. It's most common in people with Mediterranean, Middle Eastern, South Asian, or African ancestry.",
    helpful:["Regular blood transfusions manage more severe forms, monitored by a hematologist","Newer treatments, including gene therapy, are expanding options for many patients","Carrier screening before pregnancy helps at-risk couples understand their odds"]},
-  {id:'hereditary-fructose-intolerance', name:'Hereditary Fructose Intolerance', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'hereditary-fructose-intolerance', name:'Hereditary Fructose Intolerance', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"9 (ALDOB)",
    summary:"An inability to properly break down fructose, a sugar found in fruit and some sweeteners.",
    text:"Two recessive alleles affect the enzyme needed to metabolize fructose, which can otherwise build up and stress the liver and kidneys. Avoiding fructose and sucrose in the diet allows completely normal health.",
    helpful:["A fructose-free diet, guided by a dietitian, is the primary and effective treatment","Reading ingredient labels carefully helps avoid hidden fructose and sucrose","Most people manage this very well long-term once dietary triggers are identified"]},
-  {id:'citrullinemia', name:'Citrullinemia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'citrullinemia', name:'Citrullinemia', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"9 (ASS1)",
    summary:"A condition where the body can't properly clear ammonia produced from protein breakdown.",
    text:"Two recessive alleles affect an enzyme in the urea cycle, the body's ammonia-clearing pathway. It's caught through newborn screening in most places, and a controlled-protein diet manages it long-term.",
    helpful:["A low-protein diet, carefully managed by a metabolic dietitian, is central to treatment","Specific medications can help the body clear ammonia more effectively","Regular blood ammonia monitoring helps guide ongoing care"]},
-  {id:'homocystinuria', name:'Homocystinuria', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'homocystinuria', name:'Homocystinuria', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"21 (CBS)",
    summary:"A condition affecting the breakdown of the amino acid methionine, which can affect the eyes, skeleton, and blood vessels.",
    text:"Two recessive alleles affect an enzyme in this metabolic pathway. Caught early through newborn screening, dietary management and vitamin B6 supplementation (for some patients) allow good long-term outcomes.",
    helpful:["A modified low-methionine diet is a core part of treatment for many patients","Some patients respond well to vitamin B6 supplementation — a metabolic doctor can test for this","Regular eye exams help monitor for lens dislocation, a known feature of this condition"]},
-  {id:'alkaptonuria', name:'Alkaptonuria ("black urine disease")', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'alkaptonuria', name:'Alkaptonuria ("black urine disease")', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"3 (HGD)",
    summary:"A rare condition causing urine to darken on exposure to air, and cartilage to gradually darken and stiffen over decades.",
    text:"This was actually the very first human disease shown to follow Mendelian recessive inheritance, described by Archibald Garrod in 1902 — a landmark moment in the history of genetics. It comes from two recessive alleles affecting an enzyme in the breakdown of certain amino acids.",
    helpful:["A rheumatologist can monitor joint health, since cartilage changes build up gradually over a lifetime","A newer medication (nitisinone) can slow disease progression in some patients","Support groups like the AKU Society connect patients to specialized research and care"]},
-  {id:'congenital-pain-insensitivity', name:'Congenital Insensitivity to Pain', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'congenital-pain-insensitivity', name:'Congenital Insensitivity to Pain', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"2 (SCN9A)",
    summary:"A rare condition in which a person cannot feel physical pain at all, despite otherwise-normal nerve function.",
    text:"It comes from two recessive alleles affecting a pain-signaling channel in nerve cells. While it might sound harmless, pain normally protects the body from injury, so people with this condition need extra vigilance to catch injuries or illness that would otherwise be signaled by pain.",
    helpful:["Regular self-checks (and check-ups with a doctor) help catch unnoticed injuries or infections early","Protective habits — like checking bath water temperature by thermometer, not touch — reduce accidental injury","A pain-specialist or neurologist can help families build practical daily safety routines"]},
-  {id:'rh-null', name:'Rh-null blood type', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B',
+  {id:'rh-null', name:'Rh-null blood type', cat:'condition', pattern:'Autosomal Recessive', color:'#C96A5B', chromosome:"1 or 6, depending on type (RH or RHAG)",
    summary:"An extremely rare blood type completely missing all Rh antigens, sometimes nicknamed 'golden blood.'",
    text:"It requires two recessive alleles at a regulatory gene that normally allows Rh antigens to appear on red blood cells at all. It's useful to any Rh blood type in a transfusion but can only safely receive blood from another Rh-null donor, of which very few are known worldwide.",
    helpful:["People with Rh-null blood are often asked to bank their own blood in advance of planned surgeries","Rare blood registries help connect Rh-null individuals in emergencies","Genetic counseling can clarify inheritance odds for family members"]},
 
   /* ---------- X-linked conditions ---------- */
-  {id:'fragile-x', name:'Fragile X Syndrome', cat:'condition', pattern:'X-linked Dominant (variable penetrance)', color:'#C96A5B',
+  {id:'fragile-x', name:'Fragile X Syndrome', cat:'condition', pattern:'X-linked Dominant (variable penetrance)', color:'#C96A5B', chromosome:"X (FMR1)",
    summary:"The most common inherited cause of intellectual disability, caused by an expanded repeat in the FMR1 gene.",
    text:"Fragile X affects boys more severely on average, since they have only one X chromosome, though girls can also be affected to varying degrees. Early intervention services make a meaningful difference in developmental outcomes.",
    helpful:["Early intervention therapies (speech, occupational, behavioral) show strong benefit when started young","The National Fragile X Foundation connects families to specialists and current research","Genetic counseling helps families understand the specific repeat-expansion inheritance pattern, which is more complex than typical X-linked traits"]},
-  {id:'rett-syndrome', name:'Rett Syndrome', cat:'condition', pattern:'X-linked Dominant', color:'#C96A5B',
+  {id:'rett-syndrome', name:'Rett Syndrome', cat:'condition', pattern:'X-linked Dominant', color:'#C96A5B', chromosome:"X (MECP2)",
    summary:"A developmental condition, almost always affecting girls, causing a loss of previously gained skills starting in infancy or toddlerhood.",
    text:"It's caused by a variant in the MECP2 gene, and is usually lethal very early in male embryos, which is why it's seen almost exclusively in girls. Most cases arise from a new mutation rather than being inherited from a parent.",
    helpful:["A multidisciplinary care team (neurology, PT, OT, speech) supports quality of life at each stage","Communication devices and augmentative communication tools help many patients express themselves","The International Rett Syndrome Foundation connects families to research and specialized clinics"]},
-  {id:'x-linked-ichthyosis', name:'X-linked Ichthyosis', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'x-linked-ichthyosis', name:'X-linked Ichthyosis', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (STS)",
    summary:"A skin condition causing dry, scaly patches, usually noticeable from early childhood.",
    text:"It affects males almost exclusively, since it's X-linked recessive, and comes from a missing enzyme needed for normal skin shedding. It's a manageable skin condition rather than a serious health risk.",
    helpful:["Regular moisturizing with urea- or lactic-acid-based creams helps manage scaling","A dermatologist can recommend gentle exfoliating routines suited to sensitive skin","Symptoms are often mildest in summer and worse in dry winter air — humidifiers can help"]},
-  {id:'ocular-albinism', name:'Ocular Albinism (Type 1)', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'ocular-albinism', name:'Ocular Albinism (Type 1)', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (GPR143)",
    summary:"A condition affecting pigmentation specifically in the eyes, often with reduced vision.",
    text:"Unlike oculocutaneous albinism, skin and hair color are usually typical — only eye pigmentation and function are affected. It's more common and more severe in males, since it's X-linked recessive.",
    helpful:["Low-vision aids like magnifiers or specialized glasses can support daily tasks","Sunglasses and wide-brim hats help with light sensitivity, which is common with this condition","An ophthalmologist experienced with albinism can guide vision-support planning"]},
-  {id:'g6pd-deficiency', name:'G6PD Deficiency', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'g6pd-deficiency', name:'G6PD Deficiency', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (G6PD)",
    summary:"A condition making red blood cells vulnerable to breaking down after certain triggers like specific medications, infections, or fava beans.",
    text:"It's one of the most common enzyme deficiencies worldwide and affects males more often, since it's X-linked recessive. Most people live entirely normal lives simply by knowing which triggers to avoid.",
    helpful:["A simple blood test confirms diagnosis, useful before starting certain medications","Avoiding known triggers (including fava beans and specific antibiotics) prevents most episodes","Telling any new doctor about a G6PD diagnosis avoids accidental prescription of a trigger medication"]},
-  {id:'adrenoleukodystrophy', name:'Adrenoleukodystrophy (ALD)', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'adrenoleukodystrophy', name:'Adrenoleukodystrophy (ALD)', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (ABCD1)",
    summary:"A condition affecting the breakdown of certain fats, which can damage the nervous system and adrenal glands over time.",
    text:"It affects boys more severely, since it's X-linked, with a wide range of severity and age of onset even within the same family. Newborn screening in many places now allows much earlier detection and intervention.",
    helpful:["Newborn screening in many regions now catches ALD before symptoms begin","Bone marrow/stem cell transplant and newer gene therapies can significantly change outcomes if started early","Regular monitoring (MRI and hormone testing) helps track any changes over time"]},
-  {id:'wiskott-aldrich', name:'Wiskott-Aldrich Syndrome', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'wiskott-aldrich', name:'Wiskott-Aldrich Syndrome', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (WAS)",
    summary:"A condition affecting the immune system and blood platelets, mostly in boys.",
    text:"It comes from a variant affecting immune cell function, leading to increased infections, eczema, and easy bruising. Bone marrow transplant can be curative for many patients.",
    helpful:["Bone marrow/stem cell transplant offers a potential cure, especially when done earlier in life","Preventive antibiotics and immune support reduce infection risk in the meantime","An immunologist coordinates the specialized, ongoing care this condition needs"]},
-  {id:'menkes-disease', name:'Menkes Disease', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'menkes-disease', name:'Menkes Disease', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (ATP7A)",
    summary:"A condition affecting the body's ability to absorb and use copper, usually appearing in infancy.",
    text:"It's caused by a variant in a copper-transport gene and affects boys almost exclusively. Early copper-injection treatment, when started very early, has improved outcomes for some patients.",
    helpful:["Early diagnosis and copper-replacement injections offer the best chance at improved outcomes","A pediatric neurologist and metabolic specialist typically coordinate care together","Genetic counseling helps families understand carrier testing options for future pregnancies"]},
-  {id:'x-linked-agammaglobulinemia', name:'X-linked Agammaglobulinemia', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'x-linked-agammaglobulinemia', name:'X-linked Agammaglobulinemia', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (BTK)",
    summary:"A condition where the immune system can't produce enough antibodies, leading to frequent infections.",
    text:"It's caused by a variant affecting B-cell development and affects boys almost exclusively. Regular antibody-replacement treatment allows most patients to live active, healthy lives.",
    helpful:["Regular immunoglobulin (antibody) replacement therapy is the mainstay of treatment","Prompt treatment of infections, and avoiding live vaccines, is typically advised by the care team","An immunologist coordinates long-term monitoring and treatment adjustments"]},
-  {id:'androgen-insensitivity', name:'Androgen Insensitivity Syndrome', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B',
+  {id:'androgen-insensitivity', name:'Androgen Insensitivity Syndrome', cat:'condition', pattern:'X-linked Recessive', color:'#C96A5B', chromosome:"X (AR)",
    summary:"A condition where the body's cells don't respond fully to androgen (male) hormones, despite typical male chromosomes (XY).",
    text:"Depending on how complete the insensitivity is, it can lead to a range of physical presentations. It's a recognized and increasingly well-understood variation, and affected individuals and families are supported by specialized endocrinology teams.",
    helpful:["A specialized endocrinology team helps families navigate options with accurate, current information","Peer support networks connect individuals and families with shared lived experience","Care decisions are highly personal and are best made with a knowledgeable medical team over time"]},
 
   /* ---------- Chromosomal conditions ---------- */
-  {id:'down-syndrome', name:'Down Syndrome (Trisomy 21)', cat:'condition', pattern:'Chromosomal (extra copy of chromosome 21)', color:'#C96A5B',
+  {id:'down-syndrome', name:'Down Syndrome (Trisomy 21)', cat:'condition', pattern:'Chromosomal (extra copy of chromosome 21)', color:'#C96A5B', chromosome:"21 (extra full copy — trisomy)",
    summary:"A condition caused by having a third copy of chromosome 21, affecting development and physical features.",
    text:"Down syndrome is the most common chromosomal condition in humans, and its likelihood increases with parental age at conception, though it can happen at any age. People with Down syndrome have a wide range of abilities and, with support, lead full, active lives.",
    helpful:["Early intervention services (speech, physical, occupational therapy) support development from infancy","Routine health screening covers a few areas (like heart and thyroid) more common in Down syndrome","Organizations like the National Down Syndrome Society offer resources for every life stage"]},
-  {id:'turner-syndrome', name:'Turner Syndrome', cat:'condition', pattern:'Chromosomal (missing/partial X chromosome)', color:'#C96A5B',
+  {id:'turner-syndrome', name:'Turner Syndrome', cat:'condition', pattern:'Chromosomal (missing/partial X chromosome)', color:'#C96A5B', chromosome:"X (missing/partial — monosomy X)",
    summary:"A condition affecting girls and women who are missing all or part of a second X chromosome.",
    text:"Turner syndrome often involves shorter stature and can affect fertility and heart development, though effects vary a lot between individuals. It's usually not inherited from a parent — it typically happens by chance during egg or sperm formation.",
    helpful:["Growth hormone therapy can help support height when started at the right age","Regular heart and hearing checks are a standard part of long-term care","An endocrinologist coordinates hormone-related care, including options around puberty and fertility"]},
-  {id:'klinefelter-syndrome', name:'Klinefelter Syndrome', cat:'condition', pattern:'Chromosomal (extra X chromosome in males, XXY)', color:'#C96A5B',
+  {id:'klinefelter-syndrome', name:'Klinefelter Syndrome', cat:'condition', pattern:'Chromosomal (extra X chromosome in males, XXY)', color:'#C96A5B', chromosome:"X (extra copy — XXY)",
    summary:"A condition affecting boys and men who have an extra X chromosome (XXY instead of XY).",
    text:"Many people with Klinefelter syndrome aren't diagnosed until puberty or adulthood, since effects can be subtle. It commonly affects fertility and can involve lower testosterone, both of which can be supported with treatment.",
    helpful:["Testosterone therapy, started around puberty, supports typical development for many patients","Fertility specialists can discuss options, since some patients retain fertility potential","Educational support can help with any learning differences some individuals experience"]},
-  {id:'edwards-syndrome', name:'Edwards Syndrome (Trisomy 18)', cat:'condition', pattern:'Chromosomal (extra copy of chromosome 18)', color:'#C96A5B',
+  {id:'edwards-syndrome', name:'Edwards Syndrome (Trisomy 18)', cat:'condition', pattern:'Chromosomal (extra copy of chromosome 18)', color:'#C96A5B', chromosome:"18 (extra full copy — trisomy)",
    summary:"A serious condition caused by an extra copy of chromosome 18, significantly affecting development.",
    text:"Trisomy 18 involves substantial medical complexity, and families are typically supported by a specialized perinatal and pediatric care team from diagnosis onward. Genetic counselors help families understand what to expect and what support is available.",
    helpful:["A perinatal genetic counselor helps families understand diagnosis, options, and support resources","Specialized pediatric care teams focus on comfort and quality of life","Parent support organizations connect families with others who have similar experience"]},
-  {id:'patau-syndrome', name:'Patau Syndrome (Trisomy 13)', cat:'condition', pattern:'Chromosomal (extra copy of chromosome 13)', color:'#C96A5B',
+  {id:'patau-syndrome', name:'Patau Syndrome (Trisomy 13)', cat:'condition', pattern:'Chromosomal (extra copy of chromosome 13)', color:'#C96A5B', chromosome:"13 (extra full copy — trisomy)",
    summary:"A serious condition caused by an extra copy of chromosome 13, significantly affecting development.",
    text:"Like Trisomy 18, this involves substantial medical complexity, and care is typically coordinated by a specialized team focused on the family's specific circumstances and choices. Genetic counseling provides accurate, compassionate guidance through diagnosis and decision-making.",
    helpful:["A genetic counselor can walk through diagnosis, prognosis, and available support step by step","Specialized pediatric and perinatal teams focus on individualized, compassionate care","Family support organizations connect parents with others who've navigated similar diagnoses"]},
-  {id:'triple-x', name:'Triple X Syndrome', cat:'condition', pattern:'Chromosomal (extra X chromosome in females, XXX)', color:'#C96A5B',
+  {id:'triple-x', name:'Triple X Syndrome', cat:'condition', pattern:'Chromosomal (extra X chromosome in females, XXX)', color:'#C96A5B', chromosome:"X (extra copy — XXX)",
    summary:"A condition affecting girls and women who have an extra X chromosome (XXX instead of XX).",
    text:"Many people with Triple X syndrome have no noticeable symptoms at all and are never diagnosed. When effects do occur, they're often mild, sometimes slightly taller stature or some learning differences, and most individuals lead completely typical lives.",
    helpful:["Educational support can help if any specific learning differences show up in school","Most individuals need no ongoing medical treatment specifically related to the condition","A geneticist can answer specific questions if the diagnosis was found incidentally, e.g. via prenatal testing"]},
-  {id:'cri-du-chat', name:'Cri du Chat Syndrome', cat:'condition', pattern:'Chromosomal (partial deletion of chromosome 5)', color:'#C96A5B',
+  {id:'cri-du-chat', name:'Cri du Chat Syndrome', cat:'condition', pattern:'Chromosomal (partial deletion of chromosome 5)', color:'#C96A5B', chromosome:"5 (partial deletion, 5p-)",
    summary:"A condition named for the distinctive high-pitched, cat-like cry affected infants make, caused by a missing piece of chromosome 5.",
    text:"It affects development and, in many cases, speech and motor skills, though severity varies depending on how much genetic material is missing. Early therapy services make a meaningful difference in long-term outcomes.",
    helpful:["Early intervention services (speech, physical, occupational therapy) support development significantly","A geneticist can explain the specific deletion size, which relates to expected severity","The 5p- Society offers family support and connects people to current research"]},
-  {id:'williams-syndrome', name:'Williams Syndrome', cat:'condition', pattern:'Chromosomal (microdeletion on chromosome 7)', color:'#C96A5B',
+  {id:'williams-syndrome', name:'Williams Syndrome', cat:'condition', pattern:'Chromosomal (microdeletion on chromosome 7)', color:'#C96A5B', chromosome:"7 (microdeletion, 7q11.23)",
    summary:"A condition caused by a small missing piece of chromosome 7, often including distinctive facial features, a very sociable personality, and some heart concerns.",
    text:"People with Williams syndrome are often noted for strong verbal and social skills alongside some learning differences in other areas. Heart and blood vessel monitoring is an important part of ongoing care.",
    helpful:["Regular cardiology monitoring is important, since a specific heart/vessel narrowing is common in this condition","Educational plans can be tailored to typical strengths (like verbal skills) and challenges (like spatial tasks)","The Williams Syndrome Association connects families to specialized clinics and community support"]},
-  {id:'digeorge-syndrome', name:'DiGeorge Syndrome (22q11.2 deletion)', cat:'condition', pattern:'Chromosomal (microdeletion on chromosome 22)', color:'#C96A5B',
+  {id:'digeorge-syndrome', name:'DiGeorge Syndrome (22q11.2 deletion)', cat:'condition', pattern:'Chromosomal (microdeletion on chromosome 22)', color:'#C96A5B', chromosome:"22 (microdeletion, 22q11.2)",
    summary:"A condition caused by a small missing piece of chromosome 22, which can affect the heart, immune system, and palate, among other areas.",
    text:"This deletion affects different people very differently, some have significant medical needs, others have very mild features. A multidisciplinary care team is standard, since so many different body systems can be involved.",
    helpful:["An echocardiogram and immune evaluation are typically done early to check for common features","Speech therapy often helps with palate-related speech differences","A geneticist can coordinate the broader care team given how many systems this can touch"]},
-  {id:'prader-willi', name:'Prader-Willi Syndrome', cat:'condition', pattern:'Chromosomal (deletion/imprinting on chromosome 15, paternal copy)', color:'#C96A5B',
+  {id:'prader-willi', name:'Prader-Willi Syndrome', cat:'condition', pattern:'Chromosomal (deletion/imprinting on chromosome 15, paternal copy)', color:'#C96A5B', chromosome:"15 (paternal copy, 15q11-q13)",
    summary:"A condition causing low muscle tone in infancy and, later, a constant, hard-to-control feeling of hunger.",
    text:"It happens when specific genes are missing or 'silenced' on the copy of chromosome 15 inherited from the father, a good real-world example of genomic imprinting, where which parent a gene comes from actually matters. Structured food environments and medical support help manage the hunger drive safely.",
    helpful:["A structured, supervised food environment is a core, evidence-based part of long-term management","Growth hormone therapy is commonly used and can improve strength and body composition","The Prader-Willi Syndrome Association offers detailed practical guidance for families at every age"]},
-  {id:'angelman-syndrome', name:'Angelman Syndrome', cat:'condition', pattern:'Chromosomal (deletion/imprinting on chromosome 15, maternal copy)', color:'#C96A5B',
+  {id:'angelman-syndrome', name:'Angelman Syndrome', cat:'condition', pattern:'Chromosomal (deletion/imprinting on chromosome 15, maternal copy)', color:'#C96A5B', chromosome:"15 (maternal copy, 15q11-q13)",
    summary:"A condition affecting the nervous system, causing developmental delay, movement differences, and a notably happy, easily-excitable demeanor.",
    text:"It comes from a missing or silenced gene on the copy of chromosome 15 inherited from the mother, the mirror-image imprinting story to Prader-Willi syndrome, which affects the father's copy of the same region. Communication tools and therapy support meaningfully improve quality of life.",
    helpful:["Augmentative communication tools (like picture boards or speech devices) help many nonverbal individuals communicate","Physical and occupational therapy support movement and daily-living skills","The Angelman Syndrome Foundation connects families with research updates and community support"]},
 
   /* ---------- Mitochondrial (maternal) inheritance ---------- */
-  {id:'lhon', name:'Leber Hereditary Optic Neuropathy', cat:'condition', pattern:'Mitochondrial (maternal inheritance)', color:'#C96A5B',
+  {id:'lhon', name:'Leber Hereditary Optic Neuropathy', cat:'condition', pattern:'Mitochondrial (maternal inheritance)', color:'#C96A5B', chromosome:"Mitochondrial DNA (maternal line, not a numbered chromosome)",
    summary:"A condition causing sudden vision loss, usually in one eye first, most often in young adults.",
    text:"LHON comes from a variant in mitochondrial DNA, which is passed down only from mother to child (fathers don't pass on mitochondrial DNA at all), a genuinely different inheritance pattern from anything on the nuclear chromosomes. Not everyone who carries the variant loses vision, and researchers are still studying what triggers onset in some carriers and not others.",
    helpful:["A neuro-ophthalmologist can confirm diagnosis and discuss emerging treatment options","Avoiding smoking and heavy alcohol use may reduce risk of vision loss in carriers, per current research","Genetic counseling helps families understand the maternal-line inheritance pattern, which differs from typical dominant/recessive rules"]},
-  {id:'melas', name:'MELAS Syndrome', cat:'condition', pattern:'Mitochondrial (maternal inheritance)', color:'#C96A5B',
+  {id:'melas', name:'MELAS Syndrome', cat:'condition', pattern:'Mitochondrial (maternal inheritance)', color:'#C96A5B', chromosome:"Mitochondrial DNA (maternal line, not a numbered chromosome)",
    summary:"A rare condition affecting the brain and muscles, caused by a variant in mitochondrial DNA.",
    text:"Like other mitochondrial conditions, MELAS is passed only through the maternal line, since mitochondria (and their DNA) come almost entirely from the egg cell. Symptoms and severity can vary a lot, even between siblings, due to how mitochondrial DNA is distributed unevenly during cell division.",
    helpful:["A neurologist familiar with mitochondrial disease coordinates specialized, ongoing care","Certain vitamin and supplement regimens are sometimes used to support mitochondrial function, always under specialist guidance","The United Mitochondrial Disease Foundation connects families to research and specialized clinics"]},
 
   /* ---------- Multifactorial / polygenic conditions ---------- */
-  {id:'type2-diabetes-risk', name:'Type 2 Diabetes (genetic risk)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441',
+  {id:'type2-diabetes-risk', name:'Type 2 Diabetes (genetic risk)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441', chromosome:"Polygenic — spread across many chromosomes",
    summary:"A condition affecting blood sugar regulation, shaped by many genes plus lifestyle and environment.",
    text:"Unlike the single-gene conditions elsewhere in this guide, Type 2 Diabetes risk comes from dozens of genetic variants, each contributing a small effect, combined with diet, activity, and other factors. Having relatives with it raises your own risk somewhat, but genetics alone doesn't determine the outcome.",
    helpful:["Regular checkups can catch blood sugar changes early, when they're most manageable","A doctor or dietitian can help build a plan that fits your specific risk factors and life","Family history is useful context to share with a doctor, not a prediction of what will happen"]},
-  {id:'cad-risk', name:'Coronary Artery Disease (genetic risk)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441',
+  {id:'cad-risk', name:'Coronary Artery Disease (genetic risk)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441', chromosome:"Polygenic — spread across many chromosomes",
    summary:"A form of heart disease shaped by a mix of many genes, cholesterol levels, and lifestyle factors.",
    text:"Family history of early heart disease is a meaningful signal, but it reflects the combined effect of many small genetic contributions rather than one clear inherited pattern. Some rarer forms (like familial hypercholesterolemia, covered elsewhere) do follow a single-gene pattern and carry higher individual risk.",
    helpful:["Sharing detailed family heart-health history with a doctor helps them assess your personal risk accurately","Cholesterol and blood pressure checks are useful starting points for risk assessment","A cardiologist can advise on whether more specific genetic testing makes sense for your situation"]},
-  {id:'hypertension-risk', name:'Essential Hypertension (genetic risk)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441',
+  {id:'hypertension-risk', name:'Essential Hypertension (genetic risk)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441', chromosome:"Polygenic — spread across many chromosomes",
    summary:"High blood pressure without a single identifiable cause, influenced by many genes and lifestyle factors together.",
    text:"Dozens of genetic variants each contribute a small amount to blood pressure regulation, and family history is a real but modest risk factor rather than a guarantee. Diet, activity, sleep, and stress all interact with genetic predisposition in ways researchers are still working to fully map out.",
    helpful:["Routine blood pressure checks are simple and catch changes early","A doctor can help weigh personal and family risk factors together to guide monitoring frequency","Lifestyle factors like sodium intake and activity level meaningfully interact with genetic risk"]},
-  {id:'migraine-risk', name:'Migraine (genetic component)', cat:'condition', pattern:'Polygenic / Multifactorial (rare monogenic forms exist)', color:'#D9A441',
+  {id:'migraine-risk', name:'Migraine (genetic component)', cat:'condition', pattern:'Polygenic / Multifactorial (rare monogenic forms exist)', color:'#D9A441', chromosome:"Polygenic — spread across many chromosomes",
    summary:"A neurological condition causing recurring, often severe headaches, with a strong but complex genetic component.",
    text:"Most migraine risk comes from many genes working together alongside individual triggers, though a rare form called Familial Hemiplegic Migraine does follow a single dominant-gene pattern. Having a parent with migraines meaningfully raises the odds of experiencing them too.",
    helpful:["Tracking personal triggers (sleep, certain foods, stress) helps many people reduce frequency","A neurologist can discuss preventive treatment options if migraines are frequent or severe","Family history is useful information to share, since it can help guide diagnosis and treatment choices"]},
-  {id:'asthma-risk', name:'Asthma (genetic component)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441',
+  {id:'asthma-risk', name:'Asthma (genetic component)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441', chromosome:"Polygenic — spread across many chromosomes",
    summary:"A respiratory condition involving airway inflammation, shaped by both inherited genetic variants and environmental exposures.",
    text:"Many genes contribute small effects to asthma risk, and having a parent with asthma or allergies raises a child's likelihood, but environment (like allergens, smoke exposure, and infections early in life) plays a very significant role too. It's a good example of gene-environment interaction rather than a simple inherited trait.",
    helpful:["An allergist or pulmonologist can help identify specific personal triggers","Reducing exposure to smoke and known allergens helps regardless of genetic background","Having an asthma action plan from a doctor helps manage flare-ups confidently"]},
-  {id:'alzheimers-risk', name:"Alzheimer's Disease (late-onset, genetic risk)", cat:'condition', pattern:'Polygenic / Multifactorial (APOE4 as a risk factor, not a determinant)', color:'#D9A441',
+  {id:'alzheimers-risk', name:"Alzheimer's Disease (late-onset, genetic risk)", cat:'condition', pattern:'Polygenic / Multifactorial (APOE4 as a risk factor, not a determinant)', color:'#D9A441', chromosome:"19 (APOE, common late-onset risk factor)",
    summary:"A neurodegenerative condition affecting memory and thinking, where genetics is one contributing risk factor among several.",
    text:"The APOE4 gene variant is the best-known genetic risk factor for the common, late-onset form of Alzheimer's, but carrying it increases risk without guaranteeing the disease will develop, many carriers never do, and many people without it still develop the condition. A separate, much rarer early-onset form does follow a direct single-gene inheritance pattern.",
    helpful:["A doctor or genetic counselor can help interpret what a specific risk result does and doesn't mean personally","Cardiovascular health (exercise, blood pressure, sleep) is linked to brain health across the general population","Support organizations like the Alzheimer's Association offer resources for both prevention conversations and caregiving"]},
-  {id:'autism-genetics', name:'Autism Spectrum (genetic component)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441',
+  {id:'autism-genetics', name:'Autism Spectrum (genetic component)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441', chromosome:"Polygenic — spread across many chromosomes",
    summary:"A neurodevelopmental difference in social communication and thinking styles, with a substantial but complex genetic contribution.",
    text:"Twin and family studies show autism has a strong genetic basis overall, but it involves hundreds of different genes, each contributing a small piece, plus some prenatal environmental factors, there's no single 'autism gene' and no simple inheritance pattern to calculate with a Punnett square. It's best understood as a difference in how the brain develops and processes the world, not a single condition with one cause.",
    helpful:["Early developmental support services can be helpful when families choose to pursue them","Autistic self-advocates and organizations offer valuable first-person perspective alongside clinical resources","A developmental pediatrician can offer personalized information for a specific child or family situation"]},
-  {id:'adhd-genetics', name:'ADHD (genetic component)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441',
+  {id:'adhd-genetics', name:'ADHD (genetic component)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441', chromosome:"Polygenic — spread across many chromosomes",
    summary:"A neurodevelopmental difference affecting attention regulation and activity levels, with one of the higher genetic contributions among behavioral traits.",
    text:"Twin studies suggest a large share of ADHD's variation across people relates to genetics, spread across many genes rather than one, with environment also playing a role. It commonly runs in families, though, like autism, there's no single gene or simple ratio that predicts it.",
    helpful:["Behavioral strategies and, for many people, medication can meaningfully support daily functioning","A psychologist or psychiatrist can provide an accurate personal evaluation, since self-assessment has limits","Support and accommodation strategies (at school or work) often make a bigger day-to-day difference than any single treatment alone"]},
-  {id:'obesity-risk', name:'Obesity (genetic component)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441',
+  {id:'obesity-risk', name:'Obesity (genetic component)', cat:'condition', pattern:'Polygenic / Multifactorial', color:'#D9A441', chromosome:"Polygenic — spread across many chromosomes",
    summary:"A complex trait involving body weight regulation, shaped by many genes plus diet, activity, sleep, and environment.",
    text:"Genetics meaningfully affects things like metabolism, hunger signaling, and how the body stores fat, but it interacts heavily with environment and lifestyle rather than determining outcomes on its own. A small number of rare single-gene conditions (unlike common obesity) do follow a direct inheritance pattern and are diagnosed and managed differently by a specialist.",
    helpful:["A doctor can help distinguish common multifactorial patterns from the rarer single-gene forms, which are managed differently","Sustainable lifestyle changes are shown to help across genetic backgrounds, even when genetics load the dice somewhat","Weight and health conversations are most useful when personalized with a doctor rather than generalized"]},
@@ -1095,11 +1307,291 @@ document.getElementById('trait-search').addEventListener('input', (e) => {
 });
 renderFilterRow(); renderTraitList();
 
-/* ============================= VISUALIZER ============================= */
+/* ============================= GLOSSARY ============================= */
+const GLOSSARY = [
+  {term:'Allele', def:'One of the alternative versions of a gene — e.g. the "brown eyes" allele vs. the "blue eyes" allele of the same gene.'},
+  {term:'Gene', def:'A segment of DNA that contains the instructions for a specific trait or protein.'},
+  {term:'Genotype', def:"An organism's specific genetic makeup for a given gene — e.g. Aa."},
+  {term:'Phenotype', def:'The observable physical or biochemical result of a genotype — e.g. brown eyes, blood type A.'},
+  {term:'Dominant', def:'An allele whose effect shows up in the phenotype even if only one copy is present.'},
+  {term:'Recessive', def:'An allele whose effect only shows up in the phenotype when two copies are present.'},
+  {term:'Homozygous', def:'Having two identical alleles for a gene (e.g. AA or aa).'},
+  {term:'Heterozygous', def:'Having two different alleles for a gene (e.g. Aa).'},
+  {term:'Zygote', def:'The single cell formed right after a sperm fertilizes an egg, containing a full set of chromosomes.'},
+  {term:'Chromosome', def:'A tightly coiled structure of DNA that carries many genes. Humans typically have 46, in 23 pairs.'},
+  {term:'Locus', def:"A gene's specific physical address on a chromosome."},
+  {term:'Karyotype', def:"A visual profile of all of a person's chromosomes, arranged and numbered by size and pairing."},
+  {term:'Autosome', def:'Any chromosome that is not a sex chromosome — in humans, chromosomes 1 through 22.'},
+  {term:'Sex chromosome', def:'The chromosome pair (X and Y in humans) primarily responsible for biological sex.'},
+  {term:'Mutation', def:'A change in a DNA sequence — the ultimate source of all new genetic variation.'},
+  {term:'Carrier', def:"Someone who has one copy of a recessive disease allele but doesn't show the condition themselves."},
+  {term:'Punnett square', def:'A grid used to predict the possible genotypes (and their odds) of offspring from a genetic cross.'},
+  {term:'Pedigree', def:"A chart showing how a trait or condition has passed through a family's generations."},
+  {term:'Proband', def:"The individual through whom a family's genetic history is first identified or studied — often labeled with an arrow on a pedigree."},
+  {term:'Trait', def:'Any observable characteristic that is influenced, at least in part, by genes.'},
+  {term:'Inheritance pattern', def:'The particular way a trait or condition tends to pass from parents to offspring — e.g. autosomal dominant, X-linked recessive.'},
+  {term:'Codominance', def:'When two different alleles are both fully expressed at the same time, rather than one masking the other — like AB blood type.'},
+  {term:'Incomplete dominance', def:'When two alleles blend to produce an intermediate phenotype, rather than one being fully dominant.'},
+  {term:'Polygenic', def:'A trait shaped by the combined small effects of many different genes, rather than just one.'},
+  {term:'Multifactorial', def:'A trait or condition shaped by both genetics and environment together — most common health conditions fall here.'},
+  {term:'Penetrance', def:'The proportion of people with a given genotype who actually go on to show the associated phenotype.'},
+  {term:'Expressivity', def:'How severely or extensively a genetic trait shows up in someone who has the genotype for it — can vary a lot person to person.'},
+  {term:'Monohybrid cross', def:'A genetic cross that tracks the inheritance of just one trait at a time.'},
+  {term:'Dihybrid cross', def:'A genetic cross that tracks the inheritance of two different traits at the same time.'},
+  {term:'X-linked', def:"A trait or condition whose gene is located on the X chromosome, which changes how it's inherited by sons vs. daughters."},
+  {term:'Y-linked', def:'A trait whose gene sits on the Y chromosome, so it can only be passed from a father to his sons.'},
+  {term:'Mitochondrial inheritance', def:"Inheritance through DNA located in mitochondria (not the main chromosomes), passed almost entirely from a mother to all of her children."},
+  {term:'Genomic imprinting', def:"When a gene's expression depends on which parent it was inherited from, not just its DNA sequence."},
+  {term:'De novo mutation', def:'A new genetic mutation appearing for the first time in an individual — not inherited from either parent.'},
+  {term:'Genetic counselor', def:'A trained professional who helps people understand personal or family genetic risks, testing options, and results.'},
+  {term:'Consanguinity', def:'A genetic relationship between two people who share a recent common ancestor, such as first cousins.'},
+  {term:'Hereditary vs. genetic', def:'"Genetic" means caused by genes; "hereditary" specifically means passed down from parent to child. Not all genetic conditions are hereditary — some arise from new mutations.'},
+  {term:'First-degree relative', def:"A person's parents, siblings, or children — the closest tier of biological relatives."},
+  {term:'Wild type', def:'The typical, most common version of a gene or trait found in a population, used as a baseline for comparison.'},
+  {term:'Genetic marker', def:'A known DNA sequence used as a landmark to track inheritance or locate a nearby gene of interest.'},
+];
+
+let glossarySearch = '';
+function renderGlossary(){
+  const list = document.getElementById('glossary-list');
+  const filtered = GLOSSARY.filter(g =>
+    g.term.toLowerCase().includes(glossarySearch.toLowerCase()) ||
+    g.def.toLowerCase().includes(glossarySearch.toLowerCase())
+  ).sort((a,b) => a.term.localeCompare(b.term));
+  if(filtered.length === 0){
+    list.innerHTML = `<p style="color:var(--ink-soft); grid-column:1/-1;">No matching terms. Try a different search.</p>`;
+    return;
+  }
+  list.innerHTML = filtered.map(g => `
+    <div class="glossary-item"><h4>${g.term}</h4><p>${g.def}</p></div>
+  `).join('');
+}
+document.getElementById('glossary-search').addEventListener('input', (e) => {
+  glossarySearch = e.target.value; renderGlossary();
+});
+renderGlossary();
+
+/* ============================= CHROMOSOME MAP ============================= */
+// Approximate relative sizes (not precise bp counts) just to give the bars a
+// realistic look — chromosome 1 tallest, 21/22/Y shortest, roughly matching
+// real human chromosome proportions.
+const CHROM_LIST = [
+  {id:'1',h:100},{id:'2',h:97},{id:'3',h:80},{id:'4',h:76},{id:'5',h:72},
+  {id:'6',h:68},{id:'7',h:64},{id:'8',h:58},{id:'9',h:56},{id:'10',h:54},
+  {id:'11',h:53},{id:'12',h:53},{id:'13',h:46},{id:'14',h:43},{id:'15',h:41},
+  {id:'16',h:36},{id:'17',h:33},{id:'18',h:32},{id:'19',h:24},{id:'20',h:25},
+  {id:'21',h:19},{id:'22',h:20},{id:'X',h:62},{id:'Y',h:23}
+];
+
+function traitMatchesChromosome(trait, chromId){
+  if(!trait.chromosome) return false;
+  const c = trait.chromosome;
+  if(chromId === 'MT'){ return c.indexOf('Mitochondrial') !== -1; }
+  // Match a leading chromosome number/letter, e.g. "7 (CFTR)" matches "7";
+  // "1 or 6, depending on type" matches both "1" and "6".
+  const re = new RegExp('(^|[^0-9A-Za-z])' + chromId + '([^0-9A-Za-z]|$)');
+  return re.test(c);
+}
+
+function renderKaryotype(){
+  const grid = document.getElementById('karyotype-grid');
+  let html = CHROM_LIST.map(c => `
+    <button class="chrom-btn" data-chrom="${c.id}" title="Chromosome ${c.id}">
+      <div class="chrom-bar" style="height:${c.h}px;"></div>
+      <span class="chrom-label">${c.id}</span>
+    </button>
+  `).join('');
+  html += `
+    <button class="chrom-btn" data-chrom="MT" title="Mitochondrial DNA">
+      <div class="chrom-bar" style="height:18px; border-radius:999px; background:linear-gradient(180deg,#D9A441,#C96A5B);"></div>
+      <span class="chrom-label">MT</span>
+    </button>
+  `;
+  grid.innerHTML = html;
+  grid.querySelectorAll('.chrom-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      grid.querySelectorAll('.chrom-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderChromDetail(btn.dataset.chrom);
+    });
+  });
+}
+
+function renderChromDetail(chromId){
+  const panel = document.getElementById('chrom-detail');
+  const matches = TRAITS.filter(t => traitMatchesChromosome(t, chromId));
+  const label = chromId === 'MT' ? 'Mitochondrial DNA' : `Chromosome ${chromId}`;
+  if(matches.length === 0){
+    panel.innerHTML = `<h3>${label}</h3><p style="color:var(--ink-soft); margin-top:10px;">No entries in the current Trait Guide are mapped here yet.</p>`;
+    return;
+  }
+  panel.innerHTML = `
+    <h3>${label}</h3>
+    <p style="color:var(--ink-soft); margin-top:6px; font-size:.88rem;">${matches.length} ${matches.length===1?'entry':'entries'} from the Trait Guide:</p>
+    <ul class="chrom-match-list">
+      ${matches.map(t => `
+        <li><button class="chrom-match-btn" data-trait="${t.id}">
+          <span>${t.name}</span>
+          <span class="tag-pill" style="background:${categoryColor[t.cat]}">${t.cat}</span>
+        </button></li>
+      `).join('')}
+    </ul>
+  `;
+  panel.querySelectorAll('.chrom-match-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      goto('explainer');
+      selectedTraitId = btn.dataset.trait;
+      currentFilter = 'all'; currentSearch = '';
+      document.getElementById('trait-search').value = '';
+      renderFilterRow(); renderTraitList(); renderDetail();
+    });
+  });
+}
+renderKaryotype();
+
+/* ============================= QUIZ ============================= */
+const ALL_PATTERNS = ['Autosomal Dominant','Autosomal Recessive','X-linked Recessive','X-linked Dominant','Y-linked','Mitochondrial','Chromosomal','Polygenic / Multifactorial','Multiple alleles / Codominant'];
+
+function canonicalPattern(patternStr){
+  const p = patternStr.toLowerCase();
+  if(p.indexOf('mitochondrial') !== -1) return 'Mitochondrial';
+  if(p.indexOf('chromosomal') !== -1) return 'Chromosomal';
+  if(p.indexOf('y-linked') !== -1 || p.indexOf('holandric') !== -1) return 'Y-linked';
+  if(p.indexOf('x-linked') !== -1 && p.indexOf('dominant') !== -1) return 'X-linked Dominant';
+  if(p.indexOf('x-linked') !== -1) return 'X-linked Recessive';
+  if(p.indexOf('codominan') !== -1 || p.indexOf('multiple allele') !== -1) return 'Multiple alleles / Codominant';
+  if(p.indexOf('polygenic') !== -1 || p.indexOf('multifactorial') !== -1) return 'Polygenic / Multifactorial';
+  if(p.indexOf('dominant') !== -1) return 'Autosomal Dominant';
+  if(p.indexOf('recessive') !== -1) return 'Autosomal Recessive';
+  return 'Other';
+}
+
+function shuffleArr(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const QUIZ_LENGTH = 10;
+let quizQuestions = [];
+let quizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function buildQuizQuestions(){
+  const pool = shuffleArr(TRAITS).slice(0, QUIZ_LENGTH);
+  return pool.map(trait => {
+    const roll = Math.random();
+    if(roll < 0.5){
+      const correct = canonicalPattern(trait.pattern);
+      const distractors = shuffleArr(ALL_PATTERNS.filter(p => p !== correct)).slice(0,3);
+      return {
+        prompt: `What inheritance pattern does <b>${trait.name}</b> follow?`,
+        options: shuffleArr([correct, ...distractors]),
+        correct,
+        explanation: `${trait.name} follows a ${correct} pattern. ${trait.summary}`
+      };
+    } else if(roll < 0.8){
+      const correct = trait.name;
+      const distractorNames = shuffleArr(TRAITS.filter(t => t.id !== trait.id)).slice(0,3).map(t => t.name);
+      return {
+        prompt: `Which of these matches this description?<br><span style="font-style:italic; font-weight:400; font-size:.92rem;">"${trait.summary}"</span>`,
+        options: shuffleArr([correct, ...distractorNames]),
+        correct,
+        explanation: `That's ${trait.name}. ${trait.text}`
+      };
+    } else {
+      const correct = trait.cat === 'condition' ? 'Condition' : 'Trait';
+      return {
+        prompt: `Is <b>${trait.name}</b> classified as a Trait or a Condition on Allelium?`,
+        options: shuffleArr(['Trait','Condition']),
+        correct,
+        explanation: `${trait.name} is classified as a ${correct.toLowerCase()} here. ${trait.summary}`
+      };
+    }
+  });
+}
+
+function startQuiz(){
+  quizQuestions = buildQuizQuestions();
+  quizIndex = 0; quizScore = 0;
+  document.getElementById('quiz-intro').hidden = true;
+  document.getElementById('quiz-results').hidden = true;
+  document.getElementById('quiz-active').hidden = false;
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion(){
+  quizAnswered = false;
+  const q = quizQuestions[quizIndex];
+  document.getElementById('quiz-progress-text').textContent = `Question ${quizIndex+1} / ${quizQuestions.length}`;
+  document.getElementById('quiz-score-text').textContent = `Score: ${quizScore}`;
+  const card = document.getElementById('quiz-card');
+  card.innerHTML = `
+    <div class="quiz-question">${q.prompt}</div>
+    <div class="quiz-options">
+      ${q.options.map((opt,i) => `<button class="quiz-option" data-opt="${i}">${opt}</button>`).join('')}
+    </div>
+    <div id="quiz-feedback-holder"></div>
+  `;
+  card.querySelectorAll('.quiz-option').forEach(btn => {
+    btn.addEventListener('click', () => handleQuizAnswer(parseInt(btn.dataset.opt,10), q));
+  });
+}
+
+function handleQuizAnswer(idx, q){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const isCorrect = q.options[idx] === q.correct;
+  if(isCorrect) quizScore++;
+  document.getElementById('quiz-score-text').textContent = `Score: ${quizScore}`;
+  const card = document.getElementById('quiz-card');
+  card.querySelectorAll('.quiz-option').forEach(b => {
+    const bIdx = parseInt(b.dataset.opt,10);
+    b.disabled = true;
+    if(q.options[bIdx] === q.correct) b.classList.add('correct');
+    else if(bIdx === idx) b.classList.add('incorrect');
+  });
+  const isLast = quizIndex + 1 >= quizQuestions.length;
+  document.getElementById('quiz-feedback-holder').innerHTML = `
+    <div class="quiz-feedback">${isCorrect ? '✅ Correct — ' : '❌ Not quite — '}${q.explanation}</div>
+    <button class="btn btn-primary quiz-next-btn" id="quiz-next-btn">${isLast ? 'See results →' : 'Next question →'}</button>
+  `;
+  document.getElementById('quiz-next-btn').addEventListener('click', () => {
+    quizIndex++;
+    if(quizIndex < quizQuestions.length) renderQuizQuestion();
+    else showQuizResults();
+  });
+}
+
+function showQuizResults(){
+  document.getElementById('quiz-active').hidden = true;
+  document.getElementById('quiz-results').hidden = false;
+  const pct = Math.round((quizScore/quizQuestions.length)*100);
+  let msg;
+  if(pct === 100) msg = "Perfect score — you clearly know your genetics.";
+  else if(pct >= 70) msg = "Solid result — you know this material well.";
+  else if(pct >= 40) msg = "Good starting point — a bit more time in the Trait Guide will help.";
+  else msg = "Genetics is tricky — the Trait Guide is a great place to review before trying again.";
+  document.getElementById('quiz-results-title').textContent = `${quizScore} / ${quizQuestions.length}`;
+  document.getElementById('quiz-results-detail').textContent = msg;
+}
+
+document.getElementById('quiz-start-btn').addEventListener('click', startQuiz);
+document.getElementById('quiz-again-btn').addEventListener('click', () => {
+  document.getElementById('quiz-results').hidden = true;
+  document.getElementById('quiz-intro').hidden = false;
+});
+
+
 const patternSelect = document.getElementById('pattern-select');
 const childSexSelect = document.getElementById('childsex-select');
 let parent1 = ['A','a'];
 let parent2 = ['A','a'];
+let lastMonoGrid = { size:2, cells:[] };
 
 function isXLinked(pattern){ return pattern === 'x-rec' || pattern === 'x-dom'; }
 
@@ -1223,6 +1715,19 @@ function buildPunnett(){
     else if(cls==='cell-carrier') tally.carrier++;
     else tally.clear++;
   });
+
+  const monoColorMap = {'cell-affected':'#C96A5B','cell-carrier':'#D9A441','cell-clear':'#1B7A4D'};
+  lastMonoGrid = {
+    size: 2,
+    cells: cells.flat().map(cell => {
+      const cls = phenotypeClass(cell.alleles, pattern, cell.isHemi);
+      const label = isXLinked(pattern)
+        ? (cell.isHemi ? cell.alleles[0]+'Y' : cell.alleles.join(''))
+        : cell.alleles.join('');
+      return { label, color: cell.included ? monoColorMap[cls] : '#E3E8E2' };
+    })
+  };
+
   return { tally, total, childSex };
 }
 function sup(letter){ return `<sup>${letter}</sup>`; }
@@ -1312,7 +1817,206 @@ function renderSimResults(counts, N){
   `;
 }
 
-/* ============================= PEDIGREE TOOL ============================= */
+/* ============================= CROSS MODE TOGGLE ============================= */
+document.getElementById('cross-mode-select').addEventListener('change', (e) => {
+  const mode = e.target.value;
+  document.getElementById('mono-mode').hidden = (mode !== 'mono');
+  document.getElementById('di-mode').hidden = (mode !== 'di');
+  if(mode === 'di') computeAndRenderDi();
+});
+
+/* ============================= DIHYBRID CROSS ============================= */
+let lastDiGrid = { size:4, cells:[] };
+
+function diGametes(gene1Genotype, gene2Genotype){
+  const g1 = gene1Genotype.split('');
+  const g2 = gene2Genotype.split('');
+  const gametes = [];
+  g1.forEach(a1 => g2.forEach(a2 => gametes.push(a1 + a2)));
+  return gametes; // 4 strings, e.g. "AB","Ab","aB","ab" (duplicates expected if homozygous)
+}
+
+function genePhenotype(alleles){
+  const hasDominant = alleles.some(a => a === a.toUpperCase());
+  return hasDominant ? 'dominant' : 'recessive';
+}
+
+function diParentGenotypes(parentNum){
+  return {
+    g1: document.querySelector(`.di-gene-select[data-parent="${parentNum}"][data-gene="1"]`).value,
+    g2: document.querySelector(`.di-gene-select[data-parent="${parentNum}"][data-gene="2"]`).value
+  };
+}
+
+const DI_PHENO_COLORS = { 'dominant-dominant':'#1B7A4D', 'dominant-recessive':'#D9A441', 'recessive-dominant':'#6B8FC7', 'recessive-recessive':'#C96A5B' };
+const DI_PHENO_LABELS = { 'dominant-dominant':'Both dominant traits', 'dominant-recessive':'Trait 1 dominant, Trait 2 recessive', 'recessive-dominant':'Trait 1 recessive, Trait 2 dominant', 'recessive-recessive':'Both recessive traits' };
+
+function computeDihybridCells(){
+  const p1 = diParentGenotypes(1), p2 = diParentGenotypes(2);
+  const gametes1 = diGametes(p1.g1, p1.g2);
+  const gametes2 = diGametes(p2.g1, p2.g2);
+
+  const cells = [];
+  gametes1.forEach(r => gametes2.forEach(c => {
+    const g1alleles = [r[0], c[0]].sort();
+    const g2alleles = [r[1], c[1]].sort();
+    const ph1 = genePhenotype(g1alleles);
+    const ph2 = genePhenotype(g2alleles);
+    cells.push({
+      genotype: g1alleles.join('') + g2alleles.join(''),
+      phenoKey: `${ph1}-${ph2}`
+    });
+  }));
+  return { cells, gametes1, gametes2 };
+}
+
+function computeAndRenderDi(){
+  const { cells, gametes1, gametes2 } = computeDihybridCells();
+  const table = document.getElementById('di-punnett-table');
+  let html = `<tr><th></th>${gametes2.map(g=>`<th>${g}</th>`).join('')}</tr>`;
+  gametes1.forEach((r, ri) => {
+    html += `<tr><th>${r}</th>`;
+    gametes2.forEach((c, ci) => {
+      const cell = cells[ri*4 + ci];
+      const cls = cell.phenoKey === 'dominant-dominant' ? 'cell-clear' : (cell.phenoKey === 'recessive-recessive' ? 'cell-affected' : 'cell-carrier');
+      html += `<td class="${cls}">${cell.genotype}</td>`;
+    });
+    html += '</tr>';
+  });
+  table.innerHTML = html;
+
+  const tally = {};
+  cells.forEach(c => { tally[c.phenoKey] = (tally[c.phenoKey]||0) + 1; });
+  const total = cells.length;
+  document.getElementById('di-result-summary').innerHTML = Object.keys(DI_PHENO_LABELS).map(key => {
+    const n = tally[key] || 0;
+    const pct = Math.round((n/total)*100);
+    return `<div class="bar-row"><span class="label">${DI_PHENO_LABELS[key]}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%; background:${DI_PHENO_COLORS[key]};"></div></div><span class="val">${n}/16 (${pct}%)</span></div>`;
+  }).join('');
+
+  lastDiGrid = { size:4, cells: cells.map(c => ({ label:c.genotype, color:DI_PHENO_COLORS[c.phenoKey] })) };
+}
+
+document.querySelectorAll('.di-gene-select').forEach(sel => sel.addEventListener('change', computeAndRenderDi));
+
+document.getElementById('di-simulate-btn').addEventListener('click', () => {
+  const p1 = diParentGenotypes(1), p2 = diParentGenotypes(2);
+  const gametes1 = diGametes(p1.g1, p1.g2);
+  const gametes2 = diGametes(p2.g1, p2.g2);
+  const counts = {};
+  const N = 50;
+  let done = 0;
+  const counterEl = document.getElementById('di-sim-count');
+  const timer = setInterval(() => {
+    for(let b=0; b<5 && done<N; b++, done++){
+      const r = gametes1[Math.floor(Math.random()*4)];
+      const c = gametes2[Math.floor(Math.random()*4)];
+      const g1alleles = [r[0], c[0]].sort();
+      const g2alleles = [r[1], c[1]].sort();
+      const ph1 = genePhenotype(g1alleles);
+      const ph2 = genePhenotype(g2alleles);
+      const key = `${ph1}-${ph2}`;
+      counts[key] = (counts[key]||0) + 1;
+    }
+    counterEl.textContent = `Simulating… ${done}/${N} offspring`;
+    if(done>=N){
+      clearInterval(timer);
+      counterEl.textContent = `Done — ${N} offspring simulated`;
+      document.getElementById('di-sim-results').innerHTML = Object.keys(DI_PHENO_LABELS).map(key => {
+        const n = counts[key] || 0;
+        const pct = Math.round((n/N)*100);
+        return `<div class="bar-row"><span class="label">${DI_PHENO_LABELS[key]}</span><div class="bar-track"><div class="bar-fill" style="width:${pct}%; background:${DI_PHENO_COLORS[key]};"></div></div><span class="val">${n} (${pct}%)</span></div>`;
+      }).join('') + `<p style="font-size:.78rem; color:var(--ink-soft); margin-top:10px;">Random simulation — small samples won't always land exactly on 9:3:3:1.</p>`;
+    }
+  }, 60);
+});
+
+/* ============================= SHAREABLE RESULT CARDS ============================= */
+function escapeXml(str){
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function atomLogoCardSVG(x, y, size){
+  const cx = x + size/2, cy = y + size/2;
+  return `<g>
+    <ellipse cx="${cx}" cy="${cy}" rx="${size*0.42}" ry="${size*0.16}" fill="none" stroke="#1B7A4D" stroke-width="2"/>
+    <ellipse cx="${cx}" cy="${cy}" rx="${size*0.42}" ry="${size*0.16}" fill="none" stroke="#1B7A4D" stroke-width="2" transform="rotate(60 ${cx} ${cy})"/>
+    <ellipse cx="${cx}" cy="${cy}" rx="${size*0.42}" ry="${size*0.16}" fill="none" stroke="#1B7A4D" stroke-width="2" transform="rotate(120 ${cx} ${cy})"/>
+    <circle cx="${cx}" cy="${cy}" r="${size*0.1}" fill="#0F3D2E"/>
+  </g>`;
+}
+
+function buildResultCardSVG(headline, subline, grid){
+  const W = 900, H = 640;
+  const cellSize = grid.size === 2 ? 100 : 68;
+  const gridPixelSize = cellSize * grid.size;
+  const gridX = (W - gridPixelSize) / 2;
+  const gridY = 250;
+  let cellsSvg = '';
+  for(let r = 0; r < grid.size; r++){
+    for(let c = 0; c < grid.size; c++){
+      const idx = r * grid.size + c;
+      const cell = grid.cells[idx];
+      const cx = gridX + c*cellSize, cy = gridY + r*cellSize;
+      cellsSvg += `<rect x="${cx}" y="${cy}" width="${cellSize}" height="${cellSize}" fill="${cell.color}" stroke="#122017" stroke-width="1.5"/>`;
+      cellsSvg += `<text x="${cx+cellSize/2}" y="${cy+cellSize/2+6}" font-family="IBM Plex Mono, monospace" font-size="${grid.size===2?20:14}" fill="${cell.color==='#1B7A4D'||cell.color==='#C96A5B'||cell.color==='#6B8FC7'||cell.color==='#0F3D2E' ? '#ffffff' : '#122017'}" text-anchor="middle" font-weight="700">${escapeXml(cell.label)}</text>`;
+    }
+  }
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="${W}" height="${H}" fill="#F5F7F1"/>
+    <rect x="16" y="16" width="${W-32}" height="${H-32}" rx="20" fill="#FFFFFF" stroke="#DCE6DD" stroke-width="2"/>
+    ${atomLogoCardSVG(46, 40, 46)}
+    <text x="104" y="70" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="22" fill="#0A2A20">Allelium</text>
+    <text x="${W/2}" y="150" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="32" fill="#0A2A20" text-anchor="middle">${escapeXml(headline)}</text>
+    <text x="${W/2}" y="182" font-family="IBM Plex Sans, sans-serif" font-size="15" fill="#4C5F53" text-anchor="middle">${escapeXml(subline)}</text>
+    ${cellsSvg}
+    <text x="${W/2}" y="${H-34}" font-family="IBM Plex Mono, monospace" font-size="12" fill="#4C5F53" text-anchor="middle">Made with Allelium — a free genetics education tool</text>
+  </svg>`;
+}
+
+function downloadSvgAsPng(svgString, filename){
+  const svgBlob = new Blob([svgString], {type:'image/svg+xml;charset=utf-8'});
+  const url = URL.createObjectURL(svgBlob);
+  const img = new Image();
+  img.onload = function(){
+    const canvas = document.createElement('canvas');
+    canvas.width = 1800; canvas.height = 1280;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    URL.revokeObjectURL(url);
+    const pngUrl = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = pngUrl; a.download = filename; a.click();
+  };
+  img.onerror = function(){
+    URL.revokeObjectURL(url);
+    alert('Something went wrong generating the image. Try again, or let Claude know so this can be fixed.');
+  };
+  img.src = url;
+}
+
+document.getElementById('share-mono-btn').addEventListener('click', () => {
+  const { tally, total, childSex } = buildPunnett();
+  const pattern = patternSelect.value;
+  const pct = Math.round((tally.affected/total)*100);
+  const sexNote = isXLinked(pattern) && childSex !== 'any' ? ` for a ${childSex}` : '';
+  const headline = `${pct}% chance of being affected${sexNote}`;
+  const subline = `${canonicalPattern(pattern)} cross — Allelium Inheritance Lab`;
+  downloadSvgAsPng(buildResultCardSVG(headline, subline, lastMonoGrid), 'allelium-result.png');
+});
+
+document.getElementById('share-di-btn').addEventListener('click', () => {
+  computeAndRenderDi();
+  const total = lastDiGrid.cells.length;
+  const bothDomCount = lastDiGrid.cells.filter(c => c.color === '#1B7A4D').length;
+  const pct = Math.round((bothDomCount/total)*100);
+  const headline = `${pct}% show both dominant traits`;
+  const subline = `Dihybrid cross — Allelium Inheritance Lab`;
+  downloadSvgAsPng(buildResultCardSVG(headline, subline, lastDiGrid), 'allelium-dihybrid-result.png');
+});
+
+
 (function(){
   const svg = document.getElementById('pedigree-svg');
   const hintEl = document.getElementById('pedigree-hint');
@@ -1695,7 +2399,91 @@ function renderSimResults(counts, N){
     window.print();
   });
 
+  /* ----- share via link ----- */
+  document.getElementById('copy-share-link').addEventListener('click', () => {
+    const state = { nodes: pedNodes, links: pedLinks };
+    const encoded = encodeURIComponent(JSON.stringify(state));
+    const url = `${location.origin}${location.pathname}#pedigree=${encoded}`;
+    const note = document.getElementById('share-link-note');
+    navigator.clipboard.writeText(url).then(() => {
+      note.textContent = 'Link copied! Paste it anywhere to share this exact pedigree.';
+    }).catch(() => {
+      note.textContent = 'Could not copy automatically — select and copy from the address bar instead.';
+      history.replaceState(null, '', url);
+    });
+    if(url.length > 8000){
+      note.textContent += ' (Note: this is a very large pedigree — some messaging apps may truncate long links.)';
+    }
+  });
+
+  function loadPedigreeFromHash(){
+    const hash = location.hash;
+    if(!hash.startsWith('#pedigree=')) return false;
+    try{
+      const encoded = hash.slice('#pedigree='.length);
+      const state = JSON.parse(decodeURIComponent(encoded));
+      if(!state || !Array.isArray(state.nodes) || !Array.isArray(state.links)) return false;
+      pedNodes = state.nodes;
+      pedLinks = state.links;
+      let maxId = 0;
+      [...pedNodes, ...pedLinks].forEach(item => {
+        const match = /^[a-z](\d+)$/.exec(item.id || '');
+        if(match) maxId = Math.max(maxId, parseInt(match[1], 10));
+      });
+      nextId = maxId + 1;
+      return true;
+    } catch(e){ return false; }
+  }
+  window.pedigreeLoadedFromLink = loadPedigreeFromHash();
+
   setMode('select');
+})();
+
+/* ============================= EMBED SNIPPET (FOR TEACHERS) ============================= */
+(function(){
+  const modal = document.getElementById('embed-modal');
+  const openBtn = document.getElementById('embed-open-btn');
+  const closeBtn = document.getElementById('embed-close-btn');
+  const toolSelect = document.getElementById('embed-tool-select');
+  const widthInput = document.getElementById('embed-width');
+  const heightInput = document.getElementById('embed-height');
+  const codeBox = document.getElementById('embed-code');
+  const copyBtn = document.getElementById('embed-copy-btn');
+  const copyNote = document.getElementById('embed-copy-note');
+
+  function updateEmbedCode(){
+    const tool = toolSelect.value;
+    const w = widthInput.value || 800;
+    const h = heightInput.value || 650;
+    const src = `${location.origin}${location.pathname}#${tool}`;
+    codeBox.value = `<iframe src="${src}" width="${w}" height="${h}" style="border:1px solid #DCE6DD; border-radius:12px;" title="Allelium"></iframe>`;
+    copyNote.textContent = '';
+  }
+
+  openBtn.addEventListener('click', () => { modal.hidden = false; updateEmbedCode(); });
+  closeBtn.addEventListener('click', () => { modal.hidden = true; });
+  modal.addEventListener('click', (e) => { if(e.target === modal) modal.hidden = true; });
+  [toolSelect, widthInput, heightInput].forEach(el => el.addEventListener('input', updateEmbedCode));
+
+  copyBtn.addEventListener('click', () => {
+    codeBox.select();
+    navigator.clipboard.writeText(codeBox.value).then(() => {
+      copyNote.textContent = "Copied! Paste it into your site's HTML block.";
+    }).catch(() => {
+      copyNote.textContent = 'Could not copy automatically — the text above is already selected, so Ctrl+C / Cmd+C should work.';
+    });
+  });
+})();
+
+/* ============================= DEEP LINKING ============================= */
+(function(){
+  const hash = location.hash;
+  if(window.pedigreeLoadedFromLink){
+    goto('pedigree');
+    return;
+  }
+  const key = hash.replace('#','');
+  if(pages[key]) goto(key);
 })();
 
 </script>
