@@ -8,15 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* Suppress Google's own translate banner/toolbar entirely — our custom
-     lang-select in the nav is the only translation control we want visible. */
-  .goog-te-banner-frame,
-  .goog-te-banner-frame.skiptranslate,
-  #goog-gt-tt, .goog-te-balloon-frame,
-  .goog-tooltip, .goog-tooltip:hover,
-  .goog-text-highlight{ display:none !important; background:none !important; box-shadow:none !important; }
-  body{ top:0 !important; position:static !important; }
-  #google_translate_element{ display:none !important; }
 
   :root{
     --bg: #F5F7F1;
@@ -324,8 +315,6 @@
     </select>
   </div>
 </nav>
-<div id="google_translate_element" style="display:none;"></div>
-
 <main>
 
   <!-- ================= HOME ================= -->
@@ -444,7 +433,7 @@
       <h2>Draw a family-tree pedigree chart</h2>
       <p>Standard medical-genetics symbols — squares for males, circles for females, filled shapes for affected individuals. Everything here stays in your browser; nothing is uploaded or saved anywhere.</p>
     </div>
-    <div class="disclaimer">⚠️ This tool is for sketching and visualizing family history — it doesn't store, transmit, or save any data. For real patient records, use it as a drawing aid alongside your standard documentation practices, and avoid entering identifying information you wouldn't want visible on someone's screen. Note: if you're using the language translator (top right) while entering real patient details here, that on-screen text is sent to Google's translation service to be translated — switch translation back to English first if that's a concern.</div>
+    <div class="disclaimer">⚠️ This tool is for sketching and visualizing family history — it doesn't store, transmit, or save any data. For real patient records, use it as a drawing aid alongside your standard documentation practices, and avoid entering identifying information you wouldn't want visible on someone's screen. Note: the language selector (top right) opens a translated copy of this page through Google's translation service in a new tab — avoid using it on a pedigree containing real patient details, since that page's content would pass through Google's servers to be translated.</div>
 
     <div class="pedigree-layout">
       <div class="pedigree-toolbar">
@@ -509,68 +498,19 @@
 
 <script>
 /* ============================= LANGUAGE SELECTOR ============================= */
-/* Uses Google's free client-side Website Translator. No API key, no backend —
-   it runs entirely in the visitor's browser and translates the live page. */
-function googleTranslateElementInit(){
-  new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'google_translate_element');
-}
+/* Opens this page through Google's translation proxy in a new tab. This is a
+   plainer mechanism than the live in-page widget — no script/cookie/banner
+   fighting with the browser — so it's far more reliable, at the cost of the
+   translated version opening as translate.goog rather than in-place. */
 (function(){
   const select = document.getElementById('lang-select');
-  const match = document.cookie.match(/googtrans=\/en\/([a-zA-Z-]+)/);
-  if(match) select.value = match[1];
-
   select.addEventListener('change', () => {
     const lang = select.value;
-    const domain = location.hostname;
-    if(lang === 'en'){
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain}`;
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${domain}`;
-    } else {
-      document.cookie = `googtrans=/en/${lang}; path=/;`;
-      document.cookie = `googtrans=/en/${lang}; path=/; domain=${domain}`;
-    }
-    location.reload();
+    if(lang === 'en') return;
+    const targetUrl = `https://translate.google.com/translate?sl=en&tl=${encodeURIComponent(lang)}&u=${encodeURIComponent(location.href)}`;
+    window.open(targetUrl, '_blank', 'noopener');
+    select.value = 'en';
   });
-
-  // Google's translate script injects its own top banner (an iframe) and pushes
-  // the whole page down. Hiding it via CSS alone isn't reliable because Google's
-  // script can re-apply its own inline styles after ours run. So instead of
-  // fighting it with styles, we physically remove the offending elements the
-  // moment they show up, and keep re-checking for a while as a safety net.
-  function killGoogleBanner(){
-    try{
-      document.querySelectorAll('iframe').forEach(f => {
-        const src = f.src || '';
-        const cls = f.className || '';
-        const id = f.id || '';
-        if(src.indexOf('translate.google') !== -1 || String(cls).indexOf('goog-te-banner') !== -1 || String(id).indexOf('banner') !== -1){
-          f.remove();
-        }
-      });
-      document.querySelectorAll('.goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt').forEach(el => el.remove());
-      if(document.body){
-        document.body.style.setProperty('top', '0px', 'important');
-        document.body.style.setProperty('position', 'static', 'important');
-        document.body.classList.remove('translated-ltr', 'translated-rtl');
-      }
-      document.documentElement.style.setProperty('top', '0px', 'important');
-    } catch(e){ /* never let this break the rest of the page */ }
-  }
-
-  killGoogleBanner();
-  const bannerObserver = new MutationObserver(killGoogleBanner);
-  bannerObserver.observe(document.documentElement, { childList:true, subtree:true, attributes:true, attributeFilter:['style','class'] });
-
-  // Belt-and-suspenders: Google's script loads asynchronously and can act on its
-  // own timing, so also sweep on an interval for the first several seconds
-  // after load, in case a mutation slips past the observer.
-  let sweepCount = 0;
-  const sweepTimer = setInterval(() => {
-    killGoogleBanner();
-    sweepCount++;
-    if(sweepCount > 40) clearInterval(sweepTimer); // ~20 seconds at 500ms
-  }, 500);
 })();
 
 
@@ -1752,6 +1692,5 @@ function renderSimResults(counts, N){
 })();
 
 </script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>
