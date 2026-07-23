@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
 <title>Allelium — Genetics, Explained</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -532,26 +533,46 @@ function googleTranslateElementInit(){
     location.reload();
   });
 
-  // Google's translate script injects its own top banner iframe and pushes the
-  // whole page down with an inline style — and it can re-apply that inline
-  // style after our CSS runs, so a plain stylesheet rule isn't always enough.
-  // This actively strips it out the instant it (re)appears.
-  function stripGoogleBanner(){
-    document.querySelectorAll('iframe.goog-te-banner-frame, iframe[id*="banner"], .goog-te-banner-frame').forEach(el => {
-      el.style.setProperty('display', 'none', 'important');
-      el.style.setProperty('visibility', 'hidden', 'important');
-      el.style.setProperty('height', '0', 'important');
-    });
-    if(document.body){
-      document.body.style.setProperty('top', '0px', 'important');
-      document.body.style.setProperty('position', 'static', 'important');
-    }
-    document.documentElement.style.setProperty('top', '0px', 'important');
+  // Google's translate script injects its own top banner (an iframe) and pushes
+  // the whole page down. Hiding it via CSS alone isn't reliable because Google's
+  // script can re-apply its own inline styles after ours run. So instead of
+  // fighting it with styles, we physically remove the offending elements the
+  // moment they show up, and keep re-checking for a while as a safety net.
+  function killGoogleBanner(){
+    try{
+      document.querySelectorAll('iframe').forEach(f => {
+        const src = f.src || '';
+        const cls = f.className || '';
+        const id = f.id || '';
+        if(src.indexOf('translate.google') !== -1 || String(cls).indexOf('goog-te-banner') !== -1 || String(id).indexOf('banner') !== -1){
+          f.remove();
+        }
+      });
+      document.querySelectorAll('.goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt').forEach(el => el.remove());
+      if(document.body){
+        document.body.style.setProperty('top', '0px', 'important');
+        document.body.style.setProperty('position', 'static', 'important');
+        document.body.classList.remove('translated-ltr', 'translated-rtl');
+      }
+      document.documentElement.style.setProperty('top', '0px', 'important');
+    } catch(e){ /* never let this break the rest of the page */ }
   }
-  stripGoogleBanner();
-  const bannerObserver = new MutationObserver(stripGoogleBanner);
+
+  killGoogleBanner();
+  const bannerObserver = new MutationObserver(killGoogleBanner);
   bannerObserver.observe(document.documentElement, { childList:true, subtree:true, attributes:true, attributeFilter:['style','class'] });
+
+  // Belt-and-suspenders: Google's script loads asynchronously and can act on its
+  // own timing, so also sweep on an interval for the first several seconds
+  // after load, in case a mutation slips past the observer.
+  let sweepCount = 0;
+  const sweepTimer = setInterval(() => {
+    killGoogleBanner();
+    sweepCount++;
+    if(sweepCount > 40) clearInterval(sweepTimer); // ~20 seconds at 500ms
+  }, 500);
 })();
+
 
 /* ============================= LOGO ============================= */
 function atomLogo(size, spin){
